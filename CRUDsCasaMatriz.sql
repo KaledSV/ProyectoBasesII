@@ -16,7 +16,7 @@ AS
 
 	BEGIN TRAN
 
-	SELECT [@ID], [Localizacion], [Foto], [Telefono] 
+	SELECT [ID], [Localizacion], [Foto], [Telefono] 
 	FROM   [dbo].[Ferreteria] 
 	WHERE  [ID] = @ID
 
@@ -440,7 +440,7 @@ AS
 	BEGIN TRAN
 	
 	INSERT INTO [dbo].[Modelo] ([ID], [Anio], [Descripcion], [LitrosXKilometro], [IDMarcaVehiculo] )
-	SELECT @ID, @Año, @Descripcion, @LitrosXKilometro, @IDMarcaVehiculo
+	SELECT @ID, @Anio, @Descripcion, @LitrosXKilometro, @IDMarcaVehiculo
 	
 	
 	SELECT [ID], [Anio], [Descripcion], [LitrosXKilometro], [IDMarcaVehiculo] 
@@ -457,7 +457,7 @@ END
 GO
 CREATE PROC [dbo].[sp_update_modelo] 
     @ID INT,
-    @Ano Date,
+    @Anio Date,
     @Descripcion varchar(50),
 	@LitrosXKilometro Money,
     @IDMarcaVehiculo INT
@@ -468,7 +468,7 @@ AS
 	BEGIN TRAN
 
 	UPDATE [dbo].[Modelo]
-	SET    [Ano] = @Anio, [Descripcion] = @Descripcion, [LitrosXKilometro] = @LitrosXKilometro, [IDMarcaVehiculo] = @IDMarcaVehiculo
+	SET    [Anio] = @Anio, [Descripcion] = @Descripcion, [LitrosXKilometro] = @LitrosXKilometro, [IDMarcaVehiculo] = @IDMarcaVehiculo
 	WHERE  [ID] = @ID
 	
 	
@@ -1056,7 +1056,7 @@ AS
 	
 	BEGIN TRAN
 
-	UPDATE [dbo].[Producto]
+	UPDATE [dbo].[Inventario]
 	SET    [IDProducto] = @IDProducto, Cantidad = @Cantidad
 	WHERE  [ID] = @ID
 	
