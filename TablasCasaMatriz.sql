@@ -1,3 +1,5 @@
+
+
 CREATE TABLE Ferreteria (
 	  [ID]					INT NOT NULL,
 	  [Localizacion]		Geography NOT NULL,
@@ -35,7 +37,7 @@ CREATE TABLE MarcaVehiculo (
 
 CREATE TABLE Modelo (
 	  [ID]					INT NOT NULL,
-	  [Año]					Date NOT NULL,
+	  [Anio]					Date NOT NULL,
 	  [Descripcion]			varchar(50) NOT NULL,
 	  [LitrosXKilometro]	Money NOT NULL,
 	  [IDMarcaVehiculo]		INT NOT NULL,
