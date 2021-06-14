@@ -9,7 +9,7 @@ BEGIN
 END 
 GO
 CREATE PROC [dbo].[sp_read_ferreteria] 
-    @idFerreteria int
+    @ID int
 AS 
 	SET NOCOUNT ON 
 	SET XACT_ABORT ON  
@@ -18,7 +18,7 @@ AS
 
 	SELECT [@ID], [Localizacion], [Foto], [Telefono] 
 	FROM   [dbo].[Ferreteria] 
-	WHERE  ([ID] = @idFerreteria OR @idFerreteria IS NULL) 
+	WHERE  [ID] = @ID
 
 	COMMIT
 GO
@@ -140,7 +140,7 @@ AS
 	
 	BEGIN TRAN
 	
-	INSERT INTO [dbo].[Ferreteria] ([ID], [IDFerreteria], [Nombre], [Apellido], [Foto], [FechaIngreso], [Activo])
+	INSERT INTO [dbo].[Empleado] ([ID], [IDFerreteria], [Nombre], [Apellido], [Foto], [FechaIngreso], [Activo])
 	SELECT @ID, @IDFerreteria, @Nombre, @Apellido, @Foto, @FechaIngreso, @Activo
 	
 	
@@ -416,7 +416,7 @@ AS
 
 	BEGIN TRAN
 
-	SELECT [ID], [Año], [Descripcion], [LitrosXKilometro], [IDMarcaVehiculo] 
+	SELECT [ID], [Anio], [Descripcion], [LitrosXKilometro], [IDMarcaVehiculo] 
 	FROM   [dbo].[Modelo]
 	WHERE  [ID] = @ID
 
@@ -429,7 +429,7 @@ END
 GO
 CREATE PROC [dbo].[sp_create_modelo] 
     @ID INT,
-    @Año Date,
+    @Anio Date,
     @Descripcion varchar(50),
 	@LitrosXKilometro Money,
     @IDMarcaVehiculo INT
@@ -439,11 +439,11 @@ AS
 	
 	BEGIN TRAN
 	
-	INSERT INTO [dbo].[Modelo] ([ID], [Año], [Descripcion], [LitrosXKilometro], [IDMarcaVehiculo] )
+	INSERT INTO [dbo].[Modelo] ([ID], [Anio], [Descripcion], [LitrosXKilometro], [IDMarcaVehiculo] )
 	SELECT @ID, @Año, @Descripcion, @LitrosXKilometro, @IDMarcaVehiculo
 	
 	
-	SELECT [ID], [Año], [Descripcion], [LitrosXKilometro], [IDMarcaVehiculo] 
+	SELECT [ID], [Anio], [Descripcion], [LitrosXKilometro], [IDMarcaVehiculo] 
 	FROM   [dbo].[Modelo]
 	WHERE  [ID] = @ID
 	
@@ -457,7 +457,7 @@ END
 GO
 CREATE PROC [dbo].[sp_update_modelo] 
     @ID INT,
-    @Año Date,
+    @Ano Date,
     @Descripcion varchar(50),
 	@LitrosXKilometro Money,
     @IDMarcaVehiculo INT
@@ -468,11 +468,11 @@ AS
 	BEGIN TRAN
 
 	UPDATE [dbo].[Modelo]
-	SET    [Año] = @Año, [Descripcion] = @Descripcion, [LitrosXKilometro] = @LitrosXKilometro, [IDMarcaVehiculo] = @IDMarcaVehiculo
+	SET    [Ano] = @Anio, [Descripcion] = @Descripcion, [LitrosXKilometro] = @LitrosXKilometro, [IDMarcaVehiculo] = @IDMarcaVehiculo
 	WHERE  [ID] = @ID
 	
 	
-	SELECT [ID], [Año], [Descripcion], [LitrosXKilometro], [IDMarcaVehiculo] 
+	SELECT [ID], [Anio], [Descripcion], [LitrosXKilometro], [IDMarcaVehiculo] 
 	FROM   [dbo].[Modelo]
 	WHERE  [ID] = @ID	
 	
@@ -539,7 +539,7 @@ AS
 	
 	BEGIN TRAN
 	
-	INSERT INTO [dbo].[MarcaVehiculo] ([ID], [Placa], [IDModelo])
+	INSERT INTO [dbo].[Vehiculo] ([ID], [Placa], [IDModelo])
 	SELECT @ID, @Placa, @IDModelo
 	
 	SELECT [ID], [Placa], [IDModelo]
@@ -581,7 +581,7 @@ BEGIN
     DROP PROC [dbo].[sp_delete_vehiculo] 
 END 
 GO
-CREATE PROC [dbo].[sp_delete_marcaVehiculo] 
+CREATE PROC [dbo].[sp_delete_vehiculo] 
     @ID INT
 AS 
 	SET NOCOUNT ON 
@@ -663,7 +663,7 @@ AS
 	BEGIN TRAN
 
 	UPDATE [dbo].[EmpleadoXVehiculo]
-	SET    [IDEmpleado] = @IDEmpleado, [IDModelo] = @IDModelo, [Fecha] = @Fecha
+	SET    [IDEmpleado] = @IDEmpleado, [IDVehiculo] = @IDVehiculo, [Fecha] = @Fecha
 	WHERE  [ID] = @ID
 	
 	
@@ -895,7 +895,7 @@ BEGIN
 END 
 GO
 CREATE PROC [dbo].[sp_read_producto] 
-    @ID
+    @ID INT 
 AS 
 	SET NOCOUNT ON 
 	SET XACT_ABORT ON  
@@ -971,7 +971,7 @@ AS
 
 	COMMIT
 GO
-IF OBJECT_ID('[dbo].[sp_delete_product]') IS NOT NULL
+IF OBJECT_ID('[dbo].[sp_delete_producto]') IS NOT NULL
 BEGIN 
     DROP PROC [dbo].[sp_delete_producto] 
 END 
@@ -1056,7 +1056,7 @@ AS
 	
 	BEGIN TRAN
 
-	UPDATE [dbo].[Provedor]
+	UPDATE [dbo].[Producto]
 	SET    [IDProducto] = @IDProducto, Cantidad = @Cantidad
 	WHERE  [ID] = @ID
 	
