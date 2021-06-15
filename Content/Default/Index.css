@@ -1,0 +1,109 @@
+﻿body {
+    background-image: url('fondo.jpg');
+    background-color: black;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    place-content: center;
+    height: calc(100% - 40px);
+    width: calc(100% - 40px);
+}
+
+#cajita {
+    display: flex;
+    height: 320px;
+    margin: 25%;
+    width: 640px;
+    align-self: center;
+}
+
+#right {
+    background: #474A59;
+    box-shadow: 0px 0px 40px 16px rgba(0,0,0,0.22);
+    color: #F1F1F2;
+    position: relative;
+    width: 50%;
+    height: 320px;
+    flex-direction: column;
+    place-content: center;
+}
+
+#left {
+    background: white;
+    height: calc(100% - 100px);
+    top: 45px;
+    position: relative;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+}
+
+#login {
+    font-size: 40px;
+    font-weight: 900;
+    align-self: center;
+}
+
+#UserIMG {
+    height: 45%;
+    width: 40%;
+    align-self: center;
+    margin-bottom: 10px;
+}
+
+html {
+    height: 100%;
+}
+
+.labelStart {
+    color: #c2c2c5;
+    display: block;
+    font-size: 20px;
+    height: 30px;
+    width: auto;
+    margin-top: 50px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.label {
+    color: #c2c2c5;
+    display: block;
+    font-size: 20px;
+    height: 30px;
+    width: auto;
+    margin-top: 25px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+input {
+    background: transparent;
+    font-size: 20px;
+    height: 25px;
+    width: 80%;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-color: cyan;
+    font-weight: bold;
+    margin-left: 8%;
+}
+
+.submit {
+    color: black;
+    font-size: 20px;
+    font-weight: 600;
+    transition: color 300ms;
+    text-align: center;
+    margin-top: 45px;
+    width: 40%;
+    margin-left: 30%;
+    border-color: cyan;
+    border-width: medium;
+    border-radius: 12px;
+}
