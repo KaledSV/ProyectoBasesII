@@ -27,7 +27,7 @@ CREATE TABLE `cliente` (
   `nombre` varchar(45) NOT NULL,
   `apellido` varchar(45) NOT NULL,
   `tarjeta` varchar(45) NOT NULL,
-  `user` varchar(45) NOT NULL,
+  `usuario` varchar(45) NOT NULL,
   `pass` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
