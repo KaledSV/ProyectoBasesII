@@ -7,7 +7,6 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    place-content: center;
     height: calc(100% - 40px);
     width: calc(100% - 40px);
 }
@@ -15,9 +14,15 @@
 #cajita {
     display: flex;
     height: 320px;
-    margin: 25%;
     width: 640px;
     align-self: center;
+    
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 #right {
@@ -28,7 +33,6 @@
     width: 50%;
     height: 320px;
     flex-direction: column;
-    place-content: center;
 }
 
 #left {
@@ -39,7 +43,6 @@
     width: 40%;
     display: flex;
     flex-direction: column;
-    place-content: center;
 }
 
 #login {
@@ -49,17 +52,14 @@
 }
 
 #UserIMG {
+    margin-top: 20px;
     height: 45%;
     width: 40%;
     align-self: center;
     margin-bottom: 10px;
 }
 
-html {
-    height: 100%;
-}
-
-.labelStart {
+#labelStart {
     color: #c2c2c5;
     display: block;
     font-size: 20px;
@@ -70,7 +70,7 @@ html {
     text-align: center;
 }
 
-.label {
+label {
     color: #c2c2c5;
     display: block;
     font-size: 20px;
@@ -94,7 +94,7 @@ input {
     margin-left: 8%;
 }
 
-.submit {
+#submit {
     color: black;
     font-size: 20px;
     font-weight: 600;

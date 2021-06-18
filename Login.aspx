@@ -8,10 +8,10 @@
     <link href="Content/Default/Index.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="cajita">
-        <div class="left">
+    <div id="cajita">
+        <div id="left">
             <img src="Content/Default/user.png" alt="Login" id="UserIMG"/>
-            <div class="login">Login</div>
+            <div id="login">Login</div>
         </div>
         <form runat="server" id="right">
             <label id="labelStart">Nombre de usuario</label>
