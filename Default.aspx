@@ -46,6 +46,11 @@
                                         <b>Price: </b><%#:String.Format("{0:c}", Item.Precio)%>
                                     </span>
                                     <br />
+                                    <a href="/AgregarACarrito.aspx?productID=<%#:Item.ID %>">               
+                                        <span class="ProductListItem">
+                                            <b>Agregar a Carrito<b>
+                                        </span>           
+                                    </a>
                                 </td>
                             </tr>
                             <tr>

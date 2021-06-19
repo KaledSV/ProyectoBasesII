@@ -20,6 +20,7 @@ namespace BD_Proyecto
 
             // Inicializa la base de datos
             Database.SetInitializer(new ProductDatabaseInitializer());
+            Database.SetInitializer(new CarritoDatabaseInitializer());
         }
     }
 }

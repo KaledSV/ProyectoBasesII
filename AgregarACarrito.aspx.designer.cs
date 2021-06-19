@@ -11,7 +11,7 @@ namespace BD_Proyecto
 {
 
 
-    public partial class About
+    public partial class AgregarACarrito
     {
     }
 }
