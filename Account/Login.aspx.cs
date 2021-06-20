@@ -1,20 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
 using System.Diagnostics;
-using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.SqlClient;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using BD_Proyecto.Logic;
-using BD_Proyecto.Models;
-using Microsoft.Owin.Security;
+
 
 namespace BD_Proyecto
 {
@@ -31,7 +20,7 @@ namespace BD_Proyecto
         protected void buttomLogin(object sender, EventArgs e){
             string username = user.Text;
             string password = pass.Text;
-            string connString = @"Server =LAPTOP-R470LE7F\NITROSODB; Database = CasaMatriz; Trusted_Connection = True;";
+            string connString = @"Server =LAPTOP-R470LE7F\NITROSODB; Database = CasaMatriz; Trusted_Connection = True;"; //Conexion a casa matriz
             try
             {
                 using (SqlConnection conn = new SqlConnection(connString))
@@ -49,17 +38,16 @@ namespace BD_Proyecto
                     cmd.Connection = conn;
                     conn.Open();
                     SqlDataReader data = cmd.ExecuteReader();
-
                     data.Read();
                     if ((string)data[0] == "Correcto")
                     {
-                        conn.Close();
                         Debug.WriteLine("Ingresando...");
                         Session["username"] = username;
-                        Session["id"] = 1;
-                        Session["ferreteria"] = 1;
-                        Session["admin"] = 0;
+                        Session["id"] = data[1];
+                        Session["ferreteria"] = data[2];
+                        Session["admin"] = data[3];
 
+                        conn.Close();
                         FormsAuthentication.SetAuthCookie(username, true);
                         Response.Redirect("/Default.aspx");
                         return;

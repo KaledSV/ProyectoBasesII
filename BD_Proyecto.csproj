@@ -233,7 +233,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Logic\AccionesCarrito.cs" />
-    <Compile Include="Logic\ApplicationUser.cs" />
     <Compile Include="Models\CarritoContext.cs" />
     <Compile Include="Models\CarritoDatabaseInitializer.cs" />
     <Compile Include="Models\ItemCarrito.cs" />
