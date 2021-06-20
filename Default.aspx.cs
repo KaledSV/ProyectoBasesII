@@ -23,5 +23,9 @@ namespace BD_Proyecto
             return query;
         }
 
+        protected void LoginView1_ViewChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

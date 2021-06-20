@@ -8,6 +8,7 @@ using System.Web.Security;
 using System.Web.SessionState;
 using System.Data.Entity;
 using BD_Proyecto.Models;
+using BD_Proyecto.Logic;
 namespace BD_Proyecto
 {
     public class Global : HttpApplication
@@ -21,6 +22,8 @@ namespace BD_Proyecto
             // Inicializa la base de datos
             Database.SetInitializer(new ProductDatabaseInitializer());
             Database.SetInitializer(new CarritoDatabaseInitializer());
+
+            
         }
     }
 }

@@ -3,9 +3,16 @@
     <section>
         <div>
             <hgroup>
-                <h2><%: Page.Title %></h2>
+                <h2><%: Page.Title %>
+                </h2>
             </hgroup>
-
+            <asp:LoginView ID="LoginView1" runat="server" >
+                <AnonymousTemplate>
+                    You are not logged in. Click the Login link to sign in. 
+                </AnonymousTemplate>  
+            </asp:LoginView>
+            <asp:LoginView ID="LoginView2" runat="server">
+                <LoggedInTemplate>
             <asp:ListView ID="productList" runat="server" 
                 DataKeyNames="ID" GroupItemCount="4"
                 ItemType="BD_Proyecto.Models.Producto" SelectMethod="GetProducts">
@@ -78,6 +85,9 @@
                     </table>
                 </LayoutTemplate>
             </asp:ListView>
+                    </LoggedInTemplate>
+                </asp:LoginView>
         </div>
     </section>
+    
 </asp:Content>
