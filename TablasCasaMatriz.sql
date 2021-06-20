@@ -1,4 +1,9 @@
-
+CREATE TABLE Administradores(
+	  [ID]					INT NOT NULL,
+	  [usuario]				varchar(30) NOT NULL,
+	  [pass]				varchar(30) NOT NULL,
+	  PRIMARY KEY CLUSTERED ([ID] ASC)
+);
 
 CREATE TABLE Ferreteria (
 	  [ID]					INT NOT NULL,
