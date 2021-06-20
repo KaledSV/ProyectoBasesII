@@ -141,9 +141,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Default\fondo.jpg" />
-    <Content Include="Content\Default\Index.css" />
-    <Content Include="Content\Default\user.png" />
+    <Content Include="Account\Default\fondo.jpg" />
+    <Content Include="Account\Default\Index.css" />
+    <Content Include="Account\Default\user.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
@@ -157,9 +157,10 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Login.aspx" />
+    <Content Include="Account\Login.aspx" />
     <Content Include="ProductDetails.aspx" />
     <Content Include="AgregarACarrito.aspx" />
+    <Content Include="Account\Register.aspx" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Productos_img\control.jpg" />
     <Content Include="Productos_img\iphone-7-black.jpg" />
@@ -232,6 +233,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Logic\AccionesCarrito.cs" />
+    <Compile Include="Logic\ApplicationUser.cs" />
     <Compile Include="Models\CarritoContext.cs" />
     <Compile Include="Models\CarritoDatabaseInitializer.cs" />
     <Compile Include="Models\ItemCarrito.cs" />
@@ -261,11 +263,11 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Login.aspx.cs">
+    <Compile Include="Account\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Login.aspx.designer.cs">
+    <Compile Include="Account\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProductDetails.aspx.cs">
@@ -281,6 +283,13 @@
     </Compile>
     <Compile Include="AgregarACarrito.aspx.designer.cs">
       <DependentUpon>AgregarACarrito.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />

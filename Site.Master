@@ -52,10 +52,24 @@
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="~/">Productos</a></li>
                         <li><a runat="server" href="~/Carrito" id="cartCount">Carrito</a></li>
-                        <li><asp:LoginStatus ID="LoginStatus2" runat="server" /></li>
                     </ul>
+                    <asp:LoginView runat="server" ViewStateMode="Disabled" ID="LoginStatus1">
+                        <AnonymousTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server" href="~/Account/Register">Register</a></li>
+                                <li><a runat="server" href="~/Account/Login">Log in</a></li>
+                            </ul>
+                        </AnonymousTemplate>
+                        <LoggedInTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.Name  %> !</a></li>
+                                <li>
+                                    <asp:LoginStatus ID="LoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                </li>
+                            </ul>
+                        </LoggedInTemplate>
+                    </asp:LoginView>
                 </div>
-                
             </div>
         </div>
         <div class="container body-content">

@@ -2,12 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using System.Diagnostics;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.SqlClient;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using BD_Proyecto.Logic;
+using BD_Proyecto.Models;
+using Microsoft.Owin.Security;
 
 namespace BD_Proyecto
 {
@@ -15,12 +22,15 @@ namespace BD_Proyecto
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (User.Identity.IsAuthenticated)
+            {
+                Err.Text = "hola" + User.Identity.Name;
+            }
         }
 
         protected void buttomLogin(object sender, EventArgs e){
-            string username = Request.Form["username"];
-            string password = Request.Form["password"];
+            string username = user.Text;
+            string password = pass.Text;
             string connString = @"Server =LAPTOP-R470LE7F\NITROSODB; Database = CasaMatriz; Trusted_Connection = True;";
             try
             {
@@ -45,7 +55,13 @@ namespace BD_Proyecto
                     {
                         conn.Close();
                         Debug.WriteLine("Ingresando...");
-                        //return RedirectToAction("Index", new { message = "Ingresando..." });
+                        Session["username"] = username;
+                        Session["id"] = 1;
+                        Session["ferreteria"] = 1;
+                        Session["admin"] = 0;
+
+                        FormsAuthentication.SetAuthCookie(username, true);
+                        Response.Redirect("/Default.aspx");
                         return;
                     }
                     else
@@ -54,14 +70,14 @@ namespace BD_Proyecto
                         {
                             conn.Close();
                             Debug.WriteLine("Contraseña incorrecta");
-                            //return RedirectToAction("Index", new { message = "Contraseña incorrecta" });
+                            Err.Text = "Contraseña incorrecta";
                             return;
                         }
                         else
                         {
                             conn.Close();
                             Debug.WriteLine("No se encontro ningun usuario con esas credenciales");
-                            //return RedirectToAction("Index", new { message = "No se encontro ningun usuario con esas credenciales" });
+                            Err.Text = "Usuario no encontrado";
                             return;
                         }
                     }
@@ -74,7 +90,6 @@ namespace BD_Proyecto
             }
             Debug.WriteLine("ded");
             return;
-            //return RedirectToAction("Index");
         }
     }
 }

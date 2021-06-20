@@ -15,31 +15,31 @@ namespace BD_Proyecto
     {
 
         /// <summary>
-        /// right control.
+        /// user control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm right;
+        protected global::System.Web.UI.WebControls.TextBox user;
 
         /// <summary>
-        /// username control.
+        /// pass control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText username;
+        protected global::System.Web.UI.WebControls.TextBox pass;
 
         /// <summary>
-        /// password control.
+        /// Err control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword password;
+        protected global::System.Web.UI.WebControls.Label Err;
 
         /// <summary>
         /// submit control.

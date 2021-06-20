@@ -11,34 +11,43 @@ namespace BD_Proyecto
 {
 
 
-    public partial class SiteMaster
+    public partial class Register
     {
 
         /// <summary>
-        /// cartCount control.
+        /// StatusMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor cartCount;
+        protected global::System.Web.UI.WebControls.Literal StatusMessage;
 
         /// <summary>
-        /// LoginStatus1 control.
+        /// UserName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LoginView LoginStatus1;
+        protected global::System.Web.UI.WebControls.TextBox UserName;
 
         /// <summary>
-        /// MainContent control.
+        /// Password control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
+        protected global::System.Web.UI.WebControls.TextBox Password;
+
+        /// <summary>
+        /// ConfirmPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ConfirmPassword;
     }
 }
