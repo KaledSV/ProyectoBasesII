@@ -1,12 +1,12 @@
 CREATE TABLE Administradores(
-	  [ID]					INT NOT NULL,
+	  [ID]					INT NOT NULL IDENTITY(1,1),
 	  [usuario]				varchar(30) NOT NULL,
 	  [pass]				varchar(30) NOT NULL,
 	  PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 
 CREATE TABLE Ferreteria (
-	  [ID]					INT NOT NULL,
+	  [ID]					INT NOT NULL IDENTITY(1,1),
 	  [Localizacion]		Geography NOT NULL,
 	  [Foto]		   	  	IMAGE NOT NULL,
 	  [Telefono]			varchar(20) NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE Ferreteria (
 );
 
 CREATE TABLE Empleado (
-	  [ID]					INT NOT NULL,
+	  [ID]					INT NOT NULL IDENTITY(1,1),
 	  [IDFerreteria]		INT NOT NULL,
 	  [Nombre]				Varchar(50) NOT NULL,
 	  [Apellido]			Varchar(50) NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE Empleado (
 );
 
 CREATE TABLE Amonestacion (
-	  [ID]					INT NOT NULL,
+	  [ID]					INT NOT NULL IDENTITY(1,1),
 	  [IDEmpleado]			INT NOT NULL,
 	  [Fecha]				Date NOT NULL,
 	  [Monto]				Money NOT NULL,
@@ -35,13 +35,13 @@ CREATE TABLE Amonestacion (
 );
 
 CREATE TABLE MarcaVehiculo (
-	  [ID]					INT NOT NULL,
+	  [ID]					INT NOT NULL IDENTITY(1,1),
 	  [Nombre]				varchar(20) NOT NULL,
 	  PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 
 CREATE TABLE Modelo (
-	  [ID]					INT NOT NULL,
+	  [ID]					INT NOT NULL IDENTITY(1,1),
 	  [Anio]					Date NOT NULL,
 	  [Descripcion]			varchar(50) NOT NULL,
 	  [LitrosXKilometro]	Money NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE Modelo (
 );
 
 CREATE TABLE Vehiculo (
-	  [ID]					INT NOT NULL,
+	  [ID]					INT NOT NULL IDENTITY(1,1),
 	  [Placa]				varchar(50) NOT NULL,
 	  [IDModelo]			INT NOT NULL,
 	  PRIMARY KEY CLUSTERED ([ID] ASC),
@@ -59,7 +59,7 @@ CREATE TABLE Vehiculo (
 );
 
 CREATE TABLE EmpleadoXVehiculo (
-	  [ID]					INT NOT NULL,
+	  [ID]					INT NOT NULL IDENTITY(1,1),
 	  [IDEmpleado]			INT NOT NULL,
 	  [IDVehiculo]			INT	NOT NULL,
 	  [Fecha]				Date NOT NULL,
@@ -69,19 +69,19 @@ CREATE TABLE EmpleadoXVehiculo (
 );
 
 CREATE TABLE Marca (
-	  [ID]					INT NOT NULL,
+	  [ID]					INT NOT NULL IDENTITY(1,1),
 	  [Nombre]				varchar(20) NOT NULL,
 	  PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 
 CREATE TABLE Provedor (
-	  [ID]					INT NOT NULL,
+	  [ID]					INT NOT NULL IDENTITY(1,1),
 	  [Nombre]				varchar(20) NOT NULL,
 	  PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 
 CREATE TABLE Producto (
-	  [ID]					INT NOT NULL,
+	  [ID]					INT NOT NULL IDENTITY(1,1),
 	  [IDMarca]				INT NOT NULL,
 	  [IDProvedor]			INT NOT NULL,
 	  [Nombre]				Varchar(50) NOT NULL,
@@ -95,7 +95,7 @@ CREATE TABLE Producto (
 );
 
 CREATE TABLE Inventario (
-	  [ID]					INT NOT NULL,
+	  [ID]					INT NOT NULL IDENTITY(1,1),
 	  [IDProducto]			INT NOT NULL,
 	  [Cantidad]			INT NOT NULL,
 	  PRIMARY KEY CLUSTERED ([ID] ASC),
