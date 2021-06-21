@@ -119,7 +119,7 @@
         <tr>
             <td>
                 <asp:Label ID="idFerreteriaLabel" runat="server" Text="ID"></asp:Label>
-                <asp:TextBox ID="idFerreteriaText" runat="server"></asp:TextBox>
+                <asp:DropDownList ID="idFerreteriaDrop" runat="server" DataSourceID="SqlDataSource1" DataValueField="ID" ForeColor="Black"></asp:DropDownList>
             </td>
             <td>
                 <asp:Label ID="locFerreteriaLabel" runat="server" Text="Localizacion"></asp:Label>

@@ -51,6 +51,15 @@ namespace BD_Proyecto
         protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource4;
 
         /// <summary>
+        /// SqlDataSource5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource5;
+
+        /// <summary>
         /// inventarioList control.
         /// </summary>
         /// <remarks>
@@ -69,13 +78,13 @@ namespace BD_Proyecto
         protected global::System.Web.UI.WebControls.Label idInventarioLabel;
 
         /// <summary>
-        /// idInventarioText control.
+        /// idInventarioDrop control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox idInventarioText;
+        protected global::System.Web.UI.WebControls.DropDownList idInventarioDrop;
 
         /// <summary>
         /// idProductoInventarioLabel control.
@@ -87,13 +96,13 @@ namespace BD_Proyecto
         protected global::System.Web.UI.WebControls.Label idProductoInventarioLabel;
 
         /// <summary>
-        /// idProductoInventarioText control.
+        /// idProductoInventarioDrop control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox idProductoInventarioText;
+        protected global::System.Web.UI.WebControls.DropDownList idProductoInventarioDrop;
 
         /// <summary>
         /// cantiadInventarioLabel control.
@@ -123,13 +132,13 @@ namespace BD_Proyecto
         protected global::System.Web.UI.WebControls.Label idEstanteInventarioLabel;
 
         /// <summary>
-        /// idEstanteInventarioText control.
+        /// idEstanteInventarioDrop control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox idEstanteInventarioText;
+        protected global::System.Web.UI.WebControls.DropDownList idEstanteInventarioDrop;
 
         /// <summary>
         /// InventarioInsert control.
@@ -177,13 +186,13 @@ namespace BD_Proyecto
         protected global::System.Web.UI.WebControls.Label idDepartamentoLabel;
 
         /// <summary>
-        /// idDepartamentoText control.
+        /// idDepartamentoDrop control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox idDepartamentoText;
+        protected global::System.Web.UI.WebControls.DropDownList idDepartamentoDrop;
 
         /// <summary>
         /// nombreDepartamentoLabel control.
@@ -267,13 +276,13 @@ namespace BD_Proyecto
         protected global::System.Web.UI.WebControls.Label idPasilloLabel;
 
         /// <summary>
-        /// idPasilloText control.
+        /// idPasilloDrop control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox idPasilloText;
+        protected global::System.Web.UI.WebControls.DropDownList idPasilloDrop;
 
         /// <summary>
         /// idDepartamentoPasilloLabel control.
@@ -285,13 +294,13 @@ namespace BD_Proyecto
         protected global::System.Web.UI.WebControls.Label idDepartamentoPasilloLabel;
 
         /// <summary>
-        /// idDepartamentoPasilloText control.
+        /// idDepartamentoPasilloDrop control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox idDepartamentoPasilloText;
+        protected global::System.Web.UI.WebControls.DropDownList idDepartamentoPasilloDrop;
 
         /// <summary>
         /// PasilloInsert control.
@@ -339,13 +348,13 @@ namespace BD_Proyecto
         protected global::System.Web.UI.WebControls.Label idEstanteLabel;
 
         /// <summary>
-        /// idEstanteText control.
+        /// idEstanteDrop control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox idEstanteText;
+        protected global::System.Web.UI.WebControls.DropDownList idEstanteDrop;
 
         /// <summary>
         /// idPasilloEstanteLabel control.
@@ -357,13 +366,13 @@ namespace BD_Proyecto
         protected global::System.Web.UI.WebControls.Label idPasilloEstanteLabel;
 
         /// <summary>
-        /// idPasilloEstanteText control.
+        /// idPasilloEstanteDrop control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox idPasilloEstanteText;
+        protected global::System.Web.UI.WebControls.DropDownList idPasilloEstanteDrop;
 
         /// <summary>
         /// EstanteInsert control.

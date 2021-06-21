@@ -4,6 +4,7 @@
     <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:BD_Proyecto %>" SelectCommand="SELECT id, nombre, id_ferreteria FROM FNORTE...Departamento"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:BD_Proyecto %>" SelectCommand="SELECT id, id_departamento FROM FNORTE...Pasillo"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:BD_Proyecto %>" SelectCommand="SELECT id, id_pasillo FROM FNORTE...Estante "></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:BD_Proyecto %>" SelectCommand="SELECT * FROM [Producto]"></asp:SqlDataSource>
     
     <section>
         <hr />
@@ -12,6 +13,8 @@
     <table align="center" class="nav-justified">
         <tr>
             <td colspan="7">
+                <div>
+                    Inventario</div>
                 <asp:ListView ID="inventarioList" runat="server" DataSourceID="SqlDataSource1">
                 <AlternatingItemTemplate>
                     <tr style="background-color: #FFFFFF;color: #284775;">
@@ -141,19 +144,19 @@
         <tr>
             <td>
                 <asp:Label ID="idInventarioLabel" runat="server" Text="ID"></asp:Label>
-                <asp:TextBox ID="idInventarioText" runat="server"></asp:TextBox>
+                <asp:DropDownList ID="idInventarioDrop" runat="server" DataSourceID="SqlDataSource1" DataValueField="id" ForeColor="Black"></asp:DropDownList>
             </td>
             <td>
-                <asp:Label ID="idProductoInventarioLabel" runat="server" Text="IDProducto"></asp:Label>
-                <asp:TextBox ID="idProductoInventarioText" runat="server"></asp:TextBox>
+                <asp:Label ID="idProductoInventarioLabel" runat="server" Text="Producto"></asp:Label>
+                <asp:DropDownList ID="idProductoInventarioDrop" runat="server" DataSourceID="SqlDataSource5" DataValueField="ID" ForeColor="Black" DataTextField="Nombre"></asp:DropDownList>
             </td>
             <td>
                 <asp:Label ID="cantiadInventarioLabel" runat="server" Text="Cantidad"></asp:Label>
-                <asp:TextBox ID="cantiadInventarioText" runat="server"></asp:TextBox>
+                <asp:TextBox ID="cantiadInventarioText" runat="server" ForeColor="Black"></asp:TextBox>
             </td>
             <td>
                 <asp:Label ID="idEstanteInventarioLabel" runat="server" Text="IDEstante"></asp:Label>
-                <asp:TextBox ID="idEstanteInventarioText" runat="server"></asp:TextBox>
+                <asp:DropDownList ID="idEstanteInventarioDrop" runat="server" DataSourceID="SqlDataSource4" DataValueField="id" ForeColor="Black"></asp:DropDownList>
             </td>
             <td> 
                 <asp:Button ID="InventarioInsert" runat="server" Text="Insert" OnClick="InventarioInsert_Click" />
@@ -167,6 +170,9 @@
         </tr>
         <tr>
             <td colspan="7">
+                <hr />
+                <div>
+                    Departamento</div>
                 <asp:ListView ID="departamentosList" runat="server" DataSourceID="SqlDataSource2">
                 <AlternatingItemTemplate>
                     <tr style="background-color: #FFFFFF;color: #284775;">
@@ -280,7 +286,7 @@
         <tr>
             <td>
                 <asp:Label ID="idDepartamentoLabel" runat="server" Text="ID"></asp:Label>
-                <asp:TextBox ID="idDepartamentoText" runat="server"></asp:TextBox>
+                <asp:DropDownList ID="idDepartamentoDrop" runat="server" DataSourceID="SqlDataSource2" DataValueField="id" ForeColor="Black"></asp:DropDownList>
             </td>
             <td>
                 <asp:Label ID="nombreDepartamentoLabel" runat="server" Text="Nombre"></asp:Label>
@@ -302,6 +308,9 @@
         </tr>
         <tr>
             <td colspan="7">
+                <hr />
+                <div>
+                    Pasillo</div>
                 <asp:ListView ID="pasillosList" runat="server" DataSourceID="SqlDataSource3">
                 <AlternatingItemTemplate>
                     <tr style="background-color: #FFFFFF;color: #284775;">
@@ -399,11 +408,11 @@
         <tr>
             <td>
                 <asp:Label ID="idPasilloLabel" runat="server" Text="id"></asp:Label>
-                <asp:TextBox ID="idPasilloText" runat="server"></asp:TextBox>
+                <asp:DropDownList ID="idPasilloDrop" runat="server" DataSourceID="SqlDataSource3" DataValueField="id" ForeColor="Black"></asp:DropDownList>
             </td>
             <td>
                 <asp:Label ID="idDepartamentoPasilloLabel" runat="server" Text="IDDepartamento"></asp:Label>
-                <asp:TextBox ID="idDepartamentoPasilloText" runat="server"></asp:TextBox>
+                <asp:DropDownList ID="idDepartamentoPasilloDrop" runat="server" DataSourceID="SqlDataSource2" DataValueField="id" ForeColor="Black"></asp:DropDownList>
             </td>
             <td> 
                 <asp:Button ID="PasilloInsert" runat="server" Text="Insert"/>
@@ -417,6 +426,9 @@
         </tr>
         <tr>
             <td colspan="7">
+                <hr />
+                <div>
+                    Estante</div>
                 <asp:ListView ID="estantesList" runat="server" DataSourceID="SqlDataSource4">
                 <AlternatingItemTemplate>
                     <tr style="background-color: #FFFFFF;color: #284775;">
@@ -514,11 +526,11 @@
         <tr>
              <td>
                 <asp:Label ID="idEstanteLabel" runat="server" Text="id"></asp:Label>
-                <asp:TextBox ID="idEstanteText" runat="server"></asp:TextBox>
+                <asp:DropDownList ID="idEstanteDrop" runat="server" DataSourceID="SqlDataSource4" DataValueField="id" ForeColor="Black"></asp:DropDownList>
             </td>
             <td>
                 <asp:Label ID="idPasilloEstanteLabel" runat="server" Text="IDPasillo"></asp:Label>
-                <asp:TextBox ID="idPasilloEstanteText" runat="server"></asp:TextBox>
+                <asp:DropDownList ID="idPasilloEstanteDrop" runat="server" DataSourceID="SqlDataSource3" DataValueField="id" ForeColor="Black"></asp:DropDownList>
             </td>
             <td> 
                 <asp:Button ID="EstanteInsert" runat="server" Text="Insert"/>
@@ -531,4 +543,5 @@
             </td>
         </tr>
     </table>
+    
 </asp:Content>
