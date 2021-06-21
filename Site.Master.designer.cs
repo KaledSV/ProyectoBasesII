@@ -24,6 +24,24 @@ namespace BD_Proyecto
         protected global::System.Web.UI.HtmlControls.HtmlAnchor cartCount;
 
         /// <summary>
+        /// admnInv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor admnInv;
+
+        /// <summary>
+        /// A1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor A1;
+
+        /// <summary>
         /// LoginStatus1 control.
         /// </summary>
         /// <remarks>

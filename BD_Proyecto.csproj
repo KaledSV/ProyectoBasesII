@@ -126,7 +126,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Administracion\MainAdmin.aspx" />
     <Content Include="App_Data\BD_Proyecto.mdf" />
     <Content Include="App_Data\BD_Proyecto_log.ldf">
       <DependentUpon>BD_Proyecto.mdf</DependentUpon>
@@ -161,6 +160,7 @@
     <Content Include="ProductDetails.aspx" />
     <Content Include="AgregarACarrito.aspx" />
     <Content Include="Account\Register.aspx" />
+    <Content Include="AdministrarProductos.aspx" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Productos_img\control.jpg" />
     <Content Include="Productos_img\iphone-7-black.jpg" />
@@ -199,13 +199,6 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Administracion\MainAdmin.aspx.cs">
-      <DependentUpon>MainAdmin.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Administracion\MainAdmin.aspx.designer.cs">
-      <DependentUpon>MainAdmin.aspx</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Carrito.aspx.cs">
       <DependentUpon>Carrito.aspx</DependentUpon>
@@ -289,6 +282,13 @@
     </Compile>
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdministrarProductos.aspx.cs">
+      <DependentUpon>AdministrarProductos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdministrarProductos.aspx.designer.cs">
+      <DependentUpon>AdministrarProductos.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />

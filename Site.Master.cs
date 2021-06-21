@@ -81,6 +81,7 @@ namespace BD_Proyecto
         }
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
         {
+            Session["admin"] = 0;
             Context.GetOwinContext().Authentication.SignOut();
         }
     }

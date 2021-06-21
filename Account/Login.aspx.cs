@@ -20,7 +20,7 @@ namespace BD_Proyecto
         protected void buttomLogin(object sender, EventArgs e){
             string username = user.Text;
             string password = pass.Text;
-            string connString = @"Server =LAPTOP-R470LE7F\NITROSODB; Database = CasaMatriz; Trusted_Connection = True;"; //Conexion a casa matriz
+            string connString = @"Data Source=DESKTOP-9V2D37E;Initial Catalog=CasaMatriz;Integrated Security=True"; //Conexion a casa matriz
             try
             {
                 using (SqlConnection conn = new SqlConnection(connString))
@@ -46,7 +46,7 @@ namespace BD_Proyecto
                         Session["id"] = data[1];
                         Session["ferreteria"] = data[2];
                         Session["admin"] = data[3];
-
+                        Response.Write(Session["admin"]);
                         conn.Close();
                         FormsAuthentication.SetAuthCookie(username, true);
                         Response.Redirect("/Default.aspx");
