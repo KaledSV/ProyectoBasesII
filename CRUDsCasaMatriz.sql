@@ -28,7 +28,6 @@ BEGIN
 END 
 GO
 CREATE PROC [dbo].[sp_create_ferreteria] 
-    @ID int,
     @Localizacion geography,
 	@Foto image,
     @Telefono varchar(20)
@@ -38,15 +37,9 @@ AS
 	
 	BEGIN TRAN
 	
-	INSERT INTO [dbo].[Ferreteria] ([ID], [Localizacion], [Foto], [Telefono])
-	SELECT @ID, @Localizacion, @Foto, @Telefono
-	
-	
-	SELECT [ID], [Localizacion], [Foto], [Telefono]
-	FROM   [dbo].[Ferreteria]
-	WHERE  [ID] = @ID
-	
-               
+	INSERT INTO [dbo].[Ferreteria] ([Localizacion], [Foto], [Telefono])
+	SELECT @Localizacion, @Foto, @Telefono
+	               
 	COMMIT
 GO
 IF OBJECT_ID('[dbo].[sp_update_ferreteria]') IS NOT NULL
@@ -127,7 +120,6 @@ BEGIN
 END 
 GO
 CREATE PROC [dbo].[sp_create_empleado] 
-    @ID int,
 	@IDFerreteria int,
     @Nombre varchar(50),
 	@Apellido varchar(50),
@@ -140,13 +132,8 @@ AS
 	
 	BEGIN TRAN
 	
-	INSERT INTO [dbo].[Empleado] ([ID], [IDFerreteria], [Nombre], [Apellido], [Foto], [FechaIngreso], [Activo])
-	SELECT @ID, @IDFerreteria, @Nombre, @Apellido, @Foto, @FechaIngreso, @Activo
-	
-	
-	SELECT [ID], [IDFerreteria], [Nombre], [Apellido], [Foto], [FechaIngreso], [Activo]
-	FROM   [dbo].[Empleado] 
-	WHERE  [ID] = @ID
+	INSERT INTO [dbo].[Empleado] ([IDFerreteria], [Nombre], [Apellido], [Foto], [FechaIngreso], [Activo])
+	SELECT @IDFerreteria, @Nombre, @Apellido, @Foto, @FechaIngreso, @Activo
 	
                
 	COMMIT
@@ -233,7 +220,6 @@ BEGIN
 END 
 GO
 CREATE PROC [dbo].[sp_create_amonestacion] 
-    @ID INT,
     @IDEmpleado INT,
     @Fecha DATE,
     @Monto Money
@@ -243,13 +229,8 @@ AS
 	
 	BEGIN TRAN
 	
-	INSERT INTO [dbo].[Amonestacion] ([ID], [IDEmpleado], [Fecha], [Monto] )
-	SELECT @ID, @IDEmpleado, @Fecha, @Monto
-	
-	
-	SELECT [ID], [IDEmpleado], [Fecha], [Monto] 
-	FROM   [dbo].[Amonestacion]
-	WHERE  [ID] = @ID
+	INSERT INTO [dbo].[Amonestacion] ([IDEmpleado], [Fecha], [Monto] )
+	SELECT @IDEmpleado, @Fecha, @Monto
 	
                
 	COMMIT
@@ -333,7 +314,6 @@ BEGIN
 END 
 GO
 CREATE PROC [dbo].[sp_create_marcaVehiculo] 
-    @ID INT,
     @Nombre varchar(20)
 AS 
 	SET NOCOUNT ON 
@@ -341,12 +321,8 @@ AS
 	
 	BEGIN TRAN
 	
-	INSERT INTO [dbo].[MarcaVehiculo] ([ID], [Nombre])
-	SELECT @ID, @Nombre
-	
-	SELECT [ID], [Nombre] 
-	FROM   [dbo].[MarcaVehiculo]
-	WHERE  [ID] = @ID
+	INSERT INTO [dbo].[MarcaVehiculo] ([Nombre])
+	SELECT @Nombre
 	
                
 	COMMIT
@@ -428,7 +404,6 @@ BEGIN
 END 
 GO
 CREATE PROC [dbo].[sp_create_modelo] 
-    @ID INT,
     @Anio Date,
     @Descripcion varchar(50),
 	@LitrosXKilometro Money,
@@ -439,13 +414,8 @@ AS
 	
 	BEGIN TRAN
 	
-	INSERT INTO [dbo].[Modelo] ([ID], [Anio], [Descripcion], [LitrosXKilometro], [IDMarcaVehiculo] )
-	SELECT @ID, @Anio, @Descripcion, @LitrosXKilometro, @IDMarcaVehiculo
-	
-	
-	SELECT [ID], [Anio], [Descripcion], [LitrosXKilometro], [IDMarcaVehiculo] 
-	FROM   [dbo].[Modelo]
-	WHERE  [ID] = @ID
+	INSERT INTO [dbo].[Modelo] ([Anio], [Descripcion], [LitrosXKilometro], [IDMarcaVehiculo] )
+	SELECT @Anio, @Descripcion, @LitrosXKilometro, @IDMarcaVehiculo
 	
                
 	COMMIT
@@ -530,7 +500,6 @@ BEGIN
 END 
 GO
 CREATE PROC [dbo].[sp_create_vehiculo] 
-    @ID INT,
     @Placa varchar(50),
 	@IDModelo INT
 AS 
@@ -539,13 +508,8 @@ AS
 	
 	BEGIN TRAN
 	
-	INSERT INTO [dbo].[Vehiculo] ([ID], [Placa], [IDModelo])
-	SELECT @ID, @Placa, @IDModelo
-	
-	SELECT [ID], [Placa], [IDModelo]
-	FROM   [dbo].[Vehiculo]
-	WHERE  [ID] = @ID
-	
+	INSERT INTO [dbo].[Vehiculo] ([Placa], [IDModelo])
+	SELECT @Placa, @IDModelo
                
 	COMMIT
 GO
@@ -627,7 +591,6 @@ BEGIN
 END 
 GO
 CREATE PROC [dbo].[sp_create_empleadoXvehiculo] 
-    @ID INT,
     @IDEmpleado INT,
 	@IDVehiculo INT,
 	@Fecha Date
@@ -637,12 +600,9 @@ AS
 	
 	BEGIN TRAN
 	
-	INSERT INTO [dbo].[EmpleadoXVehiculo] ([ID], [IDEmpleado], [IDVehiculo], [Fecha])
-	SELECT @ID, @IDEmpleado, @IDVehiculo, @Fecha
+	INSERT INTO [dbo].[EmpleadoXVehiculo] ([IDEmpleado], [IDVehiculo], [Fecha])
+	SELECT @IDEmpleado, @IDVehiculo, @Fecha
 	
-	SELECT [ID], [IDEmpleado], [IDVehiculo], [Fecha]
-	FROM   [dbo].[EmpleadoXVehiculo]
-	WHERE  [ID] = @ID
  
 	COMMIT
 GO
@@ -724,7 +684,6 @@ BEGIN
 END 
 GO
 CREATE PROC [dbo].[sp_create_marca] 
-    @ID INT,
     @Nombre varchar(20)
 AS 
 	SET NOCOUNT ON 
@@ -732,12 +691,8 @@ AS
 	
 	BEGIN TRAN
 	
-	INSERT INTO [dbo].[Marca] ([ID], [Nombre])
-	SELECT @ID, @Nombre
-	
-	SELECT [ID], [Nombre] 
-	FROM   [dbo].[Marca]
-	WHERE  [ID] = @ID
+	INSERT INTO [dbo].[Marca] ( [Nombre])
+	SELECT @Nombre
 	
                
 	COMMIT
@@ -819,7 +774,6 @@ BEGIN
 END 
 GO
 CREATE PROC [dbo].[sp_create_provedor] 
-    @ID INT,
     @Nombre varchar(20)
 AS 
 	SET NOCOUNT ON 
@@ -827,12 +781,8 @@ AS
 	
 	BEGIN TRAN
 	
-	INSERT INTO [dbo].[Provedor] ([ID], [Nombre])
-	SELECT @ID, @Nombre
-	
-	SELECT [ID], [Nombre] 
-	FROM   [dbo].[Provedor]
-	WHERE  [ID] = @ID
+	INSERT INTO [dbo].[Provedor] ([Nombre])
+	SELECT @Nombre
 	
                
 	COMMIT
@@ -914,7 +864,6 @@ BEGIN
 END 
 GO
 CREATE PROC [dbo].[sp_create_producto] 
-    @ID INT,
     @IDMarca INT,
     @IDProvedor	INT,
     @Nombre varchar(50),
@@ -928,13 +877,8 @@ AS
 	
 	BEGIN TRAN
 	
-	INSERT INTO [dbo].[Producto] ([ID], [IDMarca], [IDProvedor], [Nombre], [Descripcion], [Fotografias], [Codigo], [Precio])
-	SELECT @ID, @IDMarca, @IDProvedor, @Nombre, @Descripcion, @Fotografias, @Codigo, @Precio
-	
-	
-	SELECT [ID], [IDMarca], [IDProvedor], [Nombre], [Descripcion], [Fotografias], [Codigo], [Precio] 
-	FROM   [dbo].[Producto] 
-	WHERE  [ID] = @ID 
+	INSERT INTO [dbo].[Producto] ([IDMarca], [IDProvedor], [Nombre], [Descripcion], [Fotografias], [Codigo], [Precio])
+	SELECT @IDMarca, @IDProvedor, @Nombre, @Descripcion, @Fotografias, @Codigo, @Precio
 	
                
 	COMMIT
@@ -1022,7 +966,6 @@ BEGIN
 END 
 GO
 CREATE PROC [dbo].[sp_create_inventario] 
-    @ID INT,
     @IDProducto INT,
 	@Cantidad INT
 AS 
@@ -1031,14 +974,9 @@ AS
 	
 	BEGIN TRAN
 	
-	INSERT INTO [dbo].[Inventario] ([ID], [IDProducto], [Cantidad])
-	SELECT @ID, @IDProducto, @Cantidad
-	
-	SELECT [ID], [IDProducto], [Cantidad]
-	FROM   [dbo].[Inventario]
-	WHERE  [ID] = @ID
-	
-               
+	INSERT INTO [dbo].[Inventario] ([IDProducto], [Cantidad])
+	SELECT @IDProducto, @Cantidad
+	  
 	COMMIT
 GO
 IF OBJECT_ID('[dbo].[sp_update_inventario]') IS NOT NULL
