@@ -33,6 +33,15 @@ namespace BD_Proyecto
         protected global::System.Web.UI.HtmlControls.HtmlAnchor admnInv;
 
         /// <summary>
+        /// admnPM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor admnPM;
+
+        /// <summary>
         /// A1 control.
         /// </summary>
         /// <remarks>

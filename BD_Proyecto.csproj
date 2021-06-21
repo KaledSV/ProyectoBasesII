@@ -161,6 +161,7 @@
     <Content Include="AgregarACarrito.aspx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="AdministrarProductos.aspx" />
+    <Content Include="AdministrarMarcaProveedor.aspx" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Productos_img\control.jpg" />
     <Content Include="Productos_img\iphone-7-black.jpg" />
@@ -289,6 +290,13 @@
     </Compile>
     <Compile Include="AdministrarProductos.aspx.designer.cs">
       <DependentUpon>AdministrarProductos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdministrarMarcaProveedor.aspx.cs">
+      <DependentUpon>AdministrarMarcaProveedor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdministrarMarcaProveedor.aspx.designer.cs">
+      <DependentUpon>AdministrarMarcaProveedor.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />
