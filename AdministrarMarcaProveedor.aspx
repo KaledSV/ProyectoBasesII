@@ -211,8 +211,8 @@
                         </asp:DropDownList>
                         <asp:Label ID="Label2" runat="server" Text="Nombre"></asp:Label>
                         <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-                        <asp:Button ID="Button1" runat="server" Text="Insert" />
-                        <asp:Button ID="Button2" runat="server" Text="Update" />
+                        <asp:Button ID="Button1" runat="server" Text="Insert" OnClick="Button1_Click" />
+                        <asp:Button ID="Button2" runat="server" Text="Update" OnClick="Button2_Click" />
 
                     </td>
                     <td>
@@ -222,8 +222,8 @@
                         </asp:DropDownList>
                         <asp:Label ID="Label4" runat="server" Text="Nombre"></asp:Label>
                         <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
-                        <asp:Button ID="Button3" runat="server" Text="Insert" />
-                        <asp:Button ID="Button4" runat="server" Text="Update" />
+                        <asp:Button ID="Button3" runat="server" Text="Insert" OnClick="Button3_Click" />
+                        <asp:Button ID="Button4" runat="server" Text="Update" OnClick="Button4_Click" />
 
                     </td>
                 </tr>
