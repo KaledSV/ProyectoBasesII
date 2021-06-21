@@ -890,20 +890,35 @@ END
 GO
 CREATE PROC [dbo].[sp_update_producto] 
     @ID INT,
-    @IDMarca INT,
-    @IDProvedor	INT,
-    @Nombre varchar(50),
-    @Descripcion varchar(100),
-    @Fotografias NVarchar(max),
-    @Codigo INT,
-    @Precio Money
+    @IDMarca AS INT = -1,
+    @IDProvedor	AS INT = -1,
+    @Nombre AS varchar(50) = '',
+    @Descripcion AS varchar(100) = '',
+    @Fotografias AS NVarchar(max) = '',
+    @Codigo AS INT = -1,
+    @Precio AS Money = -1
 AS 
 	SET NOCOUNT ON 
 	SET XACT_ABORT ON  
 	
 	BEGIN TRAN
 
-	UPDATE [dbo].[Product]
+	IF (@IDMarca = -1)
+		SET @IDMarca = (SELECT IDMarca FROM Producto WHERE ID = @ID);
+	IF (@IDProvedor = -1)
+		SET @IDProvedor= (SELECT IDProvedor FROM Producto WHERE ID = @ID);
+	IF (@Nombre = '')
+		SET @Nombre= (SELECT Nombre FROM Producto WHERE ID = @ID);
+	IF (@Descripcion= '')
+		SET @Descripcion = (SELECT Descripcion FROM Producto WHERE ID = @ID);
+	IF (@Fotografias = '')
+		SET @Fotografias = (SELECT Fotografias FROM Producto WHERE ID = @ID);
+	IF (@Codigo = -1)
+		SET @Codigo= (SELECT Codigo FROM Producto WHERE ID = @ID);
+	IF (@Precio = -1)
+		SET @Precio= (SELECT Precio FROM Producto WHERE ID = @ID);
+
+	UPDATE Producto
 	SET    [IDMarca] = @IDMarca, [IDProvedor] = @IDProvedor, [Nombre] = @Nombre, [Descripcion] = @Descripcion, [Fotografias] = @Fotografias, [Codigo] = @Codigo, [Precio] = @Precio
 	WHERE  [ID] = @ID
 	
@@ -914,6 +929,7 @@ AS
 	
 
 	COMMIT
+
 GO
 IF OBJECT_ID('[dbo].[sp_delete_producto]') IS NOT NULL
 BEGIN 
