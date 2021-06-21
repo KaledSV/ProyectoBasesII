@@ -126,6 +126,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\Ferreterias\FerreteriaSur.aspx" />
+    <Content Include="Admin\Ferreterias\FerreteriaNorte.aspx" />
     <Content Include="App_Data\BD_Proyecto.mdf" />
     <Content Include="App_Data\BD_Proyecto_log.ldf">
       <DependentUpon>BD_Proyecto.mdf</DependentUpon>
@@ -162,6 +164,8 @@
     <Content Include="Account\Register.aspx" />
     <Content Include="AdministrarProductos.aspx" />
     <Content Include="AdministrarMarcaProveedor.aspx" />
+    <Content Include="Admin\Ferreterias\AdministrarFerreterias.aspx" />
+    <Content Include="Admin\Ferreterias\FerreteriaGAM.aspx" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Productos_img\control.jpg" />
     <Content Include="Productos_img\iphone-7-black.jpg" />
@@ -200,6 +204,20 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\Ferreterias\FerreteriaSur.aspx.cs">
+      <DependentUpon>FerreteriaSur.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Ferreterias\FerreteriaSur.aspx.designer.cs">
+      <DependentUpon>FerreteriaSur.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Ferreterias\FerreteriaNorte.aspx.cs">
+      <DependentUpon>FerreteriaNorte.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Ferreterias\FerreteriaNorte.aspx.designer.cs">
+      <DependentUpon>FerreteriaNorte.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Carrito.aspx.cs">
       <DependentUpon>Carrito.aspx</DependentUpon>
@@ -297,6 +315,20 @@
     </Compile>
     <Compile Include="AdministrarMarcaProveedor.aspx.designer.cs">
       <DependentUpon>AdministrarMarcaProveedor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Ferreterias\AdministrarFerreterias.aspx.cs">
+      <DependentUpon>AdministrarFerreterias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Ferreterias\AdministrarFerreterias.aspx.designer.cs">
+      <DependentUpon>AdministrarFerreterias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Ferreterias\FerreteriaGAM.aspx.cs">
+      <DependentUpon>FerreteriaGAM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Ferreterias\FerreteriaGAM.aspx.designer.cs">
+      <DependentUpon>FerreteriaGAM.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />
