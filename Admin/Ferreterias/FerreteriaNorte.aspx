@@ -159,10 +159,10 @@
                 <asp:DropDownList ID="idEstanteInventarioDrop" runat="server" DataSourceID="SqlDataSource4" DataValueField="id" ForeColor="Black"></asp:DropDownList>
             </td>
             <td> 
-                <asp:Button ID="InventarioInsert" runat="server" Text="Insert" OnClick="InventarioInsert_Click" />
+                <asp:Button ID="InventarioInsert" runat="server" Text="Insert"/>
             </td>
             <td> 
-                <asp:Button ID="InventarioUpdate" runat="server" Text="Update" OnClick="InventarioUpdate_Click" />
+                <asp:Button ID="InventarioUpdate" runat="server" Text="Update" />
             </td>
             <td> 
                 <asp:Label ID="errInventario" runat="server" Text=""></asp:Label>
@@ -294,7 +294,7 @@
             </td>
             <td>
                 <asp:Label ID="idFerreteriaDepartamentoLabel" runat="server" Text="IDFerreteria"></asp:Label>
-                <asp:TextBox ID="idFerreteriaDepartamentoText" runat="server"></asp:TextBox>
+                <asp:TextBox ID="idFerreteriaDepartamentoText" runat="server" ReadOnly="True" Text="1"></asp:TextBox>
             </td>
             <td> 
                 <asp:Button ID="DepartamentoInsert" runat="server" Text="Insert"/>

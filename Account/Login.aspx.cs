@@ -3,7 +3,7 @@ using System.Web.Security;
 using System.Diagnostics;
 using System.Data;
 using System.Data.SqlClient;
-
+using System.Configuration;
 
 namespace BD_Proyecto
 {
@@ -20,10 +20,9 @@ namespace BD_Proyecto
         protected void buttomLogin(object sender, EventArgs e){
             string username = user.Text;
             string password = pass.Text;
-            string connString = @"Data Source=DESKTOP-9V2D37E;Initial Catalog=CasaMatriz;Integrated Security=True"; //Conexion a casa matriz
             try
             {
-                using (SqlConnection conn = new SqlConnection(connString))
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["BD_Proyecto"].ConnectionString))
                 {
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;

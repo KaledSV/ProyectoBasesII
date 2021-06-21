@@ -294,7 +294,7 @@
             </td>
             <td>
                 <asp:Label ID="idFerreteriaDepartamentoLabel" runat="server" Text="IDFerreteria"></asp:Label>
-                <asp:TextBox ID="idFerreteriaDepartamentoText" runat="server"></asp:TextBox>
+                <asp:TextBox ID="idFerreteriaDepartamentoText" runat="server" ReadOnly="True" Text="1"></asp:TextBox>
             </td>
             <td> 
                 <asp:Button ID="DepartamentoInsert" runat="server" Text="Insert"/>

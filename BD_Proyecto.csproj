@@ -169,6 +169,7 @@
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Productos_img\control.jpg" />
     <Content Include="Productos_img\iphone-7-black.jpg" />
+    <Content Include="Productos_img\water_bottle.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

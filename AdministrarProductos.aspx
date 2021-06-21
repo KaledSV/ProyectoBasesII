@@ -216,6 +216,8 @@
             <div>
             <asp:Label ID="Label3" runat="server" Text="Nombre"></asp:Label>
             <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                <asp:Label ID="Label8" runat="server" Text="Descripcion"></asp:Label>
+                <asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
             <asp:Label ID="Label4" runat="server" Text="Fotografias"></asp:Label>
             <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
             <asp:Label ID="Label5" runat="server" Text="Codigo"></asp:Label>
