@@ -60,7 +60,7 @@ namespace BD_Proyecto
                     cmd.Parameters.Add("@Ferreteria", SqlDbType.Int).Value = 1;
                     if (cantiadInventarioText.Text.Trim() == string.Empty)
                     {
-                        cmd.Parameters.Add("@Cantidad", SqlDbType.Int).Value = 0;
+                        cmd.Parameters.Add("@Cantidad", SqlDbType.Int).Value = null;
                     }
 
                     con.Open();
@@ -84,7 +84,7 @@ namespace BD_Proyecto
                 using (SqlCommand cmd = new SqlCommand("sp_create_departamento", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@IdFerreteria", SqlDbType.NVarChar).Value = idFerreteriaDepartamentoText.Text.Trim();
+                    cmd.Parameters.Add("@IdFerreteria", SqlDbType.Int).Value = idFerreteriaDepartamentoText.Text.Trim();
                     cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = nombreDepartamentoText.Text.Trim();
                     cmd.Parameters.Add("@Ferreteria", SqlDbType.Int).Value = 1;
 
