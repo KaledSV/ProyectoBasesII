@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="FerreteriaGAM.aspx.cs" Inherits="BD_Proyecto.FerreteriaGAM" %>
+﻿<%@ Page Title="Ferreteria GAM" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="FerreteriaGAM.aspx.cs" Inherits="BD_Proyecto.FerreteriaGAM" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:BD_Proyecto %>" SelectCommand="SELECT id, id_producto, cantidad, id_estante FROM FGAM...Inventario"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:BD_Proyecto %>" SelectCommand="SELECT id, nombre, id_ferreteria FROM FGAM...Departamento"></asp:SqlDataSource>

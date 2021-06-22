@@ -7,7 +7,7 @@
     <table class="nav-justified" align="center">
         <tr>
             <td colspan="7">
-                <asp:ListView ID="Ferreterias" runat="server" DataKeyNames="ID" DataSourceID="SqlDataSource1" OnSelectedIndexChanged="Ferreterias_SelectedIndexChanged">
+                <asp:ListView ID="Ferreterias" runat="server" DataKeyNames="ID" DataSourceID="SqlDataSource1">
                 <AlternatingItemTemplate>
                     <tr style="background-color: #FFFFFF;color: #284775;">
                         <td>
@@ -150,8 +150,10 @@
                     <asp:ListItem Value="2">Norte</asp:ListItem>
                     <asp:ListItem Value="3">Sur</asp:ListItem>
                 </asp:DropDownList>
-                <asp:Button ID="adminFerreteria" runat="server" Text="Administrar Ferreteria" OnClick="adminFerreteria_Click" />
             </td>            
+            <td>
+                <asp:Button ID="adminFerreteria" runat="server" Text="Administrar Ferreteria" OnClick="adminFerreteria_Click" />
+            </td>
         </tr>
     </table>
 </asp:Content>
