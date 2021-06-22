@@ -60,6 +60,24 @@ namespace BD_Proyecto
         protected global::System.Web.UI.HtmlControls.HtmlAnchor admnE;
 
         /// <summary>
+        /// admnC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor admnC;
+
+        /// <summary>
+        /// admnV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor admnV;
+
+        /// <summary>
         /// A1 control.
         /// </summary>
         /// <remarks>

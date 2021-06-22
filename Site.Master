@@ -61,9 +61,11 @@
                             else
                             { %>
                         <li><a runat="server" href="~/Admin/Ferreterias/AdministrarFerreterias" id="admnF" visible="True">Admin Ferreterias</a></li>
-                        <li><a runat="server" href="~/AdministrarProductos" id="admnInv" visible="True">Admin Productos</a></li>
-                        <li><a runat="server" href="~/AdministrarMarcaProveedor" id="admnPM" visible="True">Admin Proveedor/Marca</a></li>
-                        <li><a runat="server" href="~/AdministrarEmpleados" id="admnE" visible="True">Admin Empleados</a></li>
+                        <li><a runat="server" href="~/Admin/Productos/AdministrarProductos" id="admnInv" visible="True">Admin Productos</a></li>
+                        <li><a runat="server" href="~/Admin/Productos/AdministrarMarcaProveedor" id="admnPM" visible="True">Admin Proveedor/Marca</a></li>
+                        <li><a runat="server" href="~/Admin/Empleados/AdministrarEmpleados" id="admnE" visible="True">Admin Empleados</a></li>
+                        <li><a runat="server" href="~/Admin/Clientes/AdministrarClientes" id="admnC" visible="True">Admin Clientes</a></li>
+                        <li><a runat="server" href="~/Admin/Vehiculos/AdminCarros" id="admnV" visible="True">Admin Vehiculos</a></li>
                         <%}
                             }
                             else

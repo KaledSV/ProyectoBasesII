@@ -168,6 +168,7 @@
     <Content Include="Admin\Ferreterias\FerreteriaGAM.aspx" />
     <Content Include="Admin\Empleados\AdministrarEmpleados.aspx" />
     <Content Include="Admin\Clientes\AdministrarClientes.aspx" />
+    <Content Include="Admin\Vehiculos\AdminCarros.aspx" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Productos_img\control.jpg" />
     <Content Include="Productos_img\iphone-7-black.jpg" />
@@ -346,6 +347,13 @@
     </Compile>
     <Compile Include="Admin\Clientes\AdministrarClientes.aspx.designer.cs">
       <DependentUpon>AdministrarClientes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Vehiculos\AdminCarros.aspx.cs">
+      <DependentUpon>AdminCarros.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Vehiculos\AdminCarros.aspx.designer.cs">
+      <DependentUpon>AdminCarros.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />
