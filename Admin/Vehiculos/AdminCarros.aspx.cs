@@ -168,7 +168,7 @@ namespace BD_Proyecto
         {
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["BD_Proyecto"].ConnectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("sp_update_modelo", con))
+                using (SqlCommand cmd = new SqlCommand("sp_update_marcaVehiculo", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
