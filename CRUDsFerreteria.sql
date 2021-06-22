@@ -184,7 +184,7 @@ CREATE TABLE `venta_producto` (
   `backorder` bit(1) NOT NULL,
   PRIMARY KEY (`id_venta`,`id_producto`),
   KEY `id_producto_idx` (`id_producto`),
-  CONSTRAINT `id_inventario` FOREIGN KEY (`id_producto`) REFERENCES `inventario` (`id`),
+  CONSTRAINT `id_producto_vendido` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id`),
   CONSTRAINT `id_venta` FOREIGN KEY (`id_venta`) REFERENCES `venta` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -196,20 +196,24 @@ CREATE TABLE `venta_producto` (
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `agregarCliente`(Nombre VARCHAR(45), Apellido VARCHAR(45), Tarjeta VARCHAR(45))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `agregarCliente`(Nombre VARCHAR(45), Apellido VARCHAR(45), Tarjeta VARCHAR(45), Usuario VARCHAR(45), Pass VARCHAR(45))
 BEGIN
 	INSERT INTO cliente(nombre,
 						apellido,
-                        tarjeta)
+                        tarjeta,
+                        usuario,
+                        pass)
 	VALUES(Nombre,
 			Apellido,
-            Tarjeta);
+            Tarjeta,
+            Usuario,
+            Pass);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -381,16 +385,16 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `agregarVenta`(IdCliente INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `agregarVenta`(IdCliente INT, IdEmpleado INT, Fecha DATE)
 BEGIN
-	INSERT INTO venta(id_cliente)
-	VALUES(IdCliente);
+	INSERT INTO venta(id_cliente, id_empleado, fecha)
+	VALUES(IdCliente, IdEmpleado, Fecha);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -401,44 +405,86 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `agregarVentaProducto`(IdVenta INT, IdProducto INT, 
-Cantidad INT)
+Cantidad INT, Backorder BIT)
 BEGIN
 	INSERT INTO venta_producto(id_venta,
 								id_producto,
-								cantidad)
+								cantidad,
+                                backorder)
 	VALUES(IdVenta,
 			IdProducto,
-            Cantidad);
+            Cantidad,
+            Backorder);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `modificacrCliente` */;
+/*!50003 DROP PROCEDURE IF EXISTS `mejores_ultimos_meses` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `modificacrCliente`(Id int, Nombre VARCHAR(45), Apellido VARCHAR(45), 
-Tarjeta VARCHAR(45))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `mejores_ultimos_meses`()
+BEGIN
+	create temporary table  TempVentas (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+										id_producto INT,
+                                        totalVentas INT);
+	
+    INSERT INTO TempVentas(id_producto,
+							totalVentas)
+	SELECT p.codigo,
+			SUM(vp.cantidad)
+    FROM venta_producto vp
+    INNER JOIN producto p ON p.codigo = vp.id_producto
+    INNER JOIN venta v ON v.id = vp.id_venta
+    WHERE datediff(curdate(),v.fecha) < 4
+	group by vp.id_producto;
+        
+	SELECT id_producto,
+			totalVentas
+    FROM TempVentas
+    order by totalVentas DESC;
+    
+    DROP TEMPORARY TABLE IF EXISTS TempVentas;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `modificarCliente` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `modificarCliente`(Id int, Nombre VARCHAR(45), Apellido VARCHAR(45), 
+Tarjeta VARCHAR(45), Usuario VARCHAR(45), Pass VARCHAR(45))
 BEGIN
 	UPDATE cliente
     SET nombre = Nombre,
 		apellido = Apellido,
-        tarjeta = Tarjeta
+        tarjeta = Tarjeta,
+        usuario = Usuario,
+        pass = Pass
 	WHERE cliente.id = Id;
 END ;;
 DELIMITER ;
@@ -446,12 +492,12 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `modificacrDepartamento` */;
+/*!50003 DROP PROCEDURE IF EXISTS `modificarDepartamento` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
@@ -468,17 +514,17 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `modificacrDireccion` */;
+/*!50003 DROP PROCEDURE IF EXISTS `modificarDireccion` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `modificacrDireccion`(Id int, IdCliente INT, 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `modificarDireccion`(Id int, IdCliente INT, 
 Descripcion VARCHAR(100), Localizacion GEOMETRY)
 BEGIN
 	UPDATE direccion
@@ -609,16 +655,18 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `modificarVenta`(Id int, IdCliente INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `modificarVenta`(Id int, IdCliente INT, IdEmpleado INT, Fecha DATE)
 BEGIN
 	UPDATE venta
-    SET id_cliente = IdCliente
+    SET id_cliente = IdCliente,
+		id_empleado = IdEmpleado,
+		fecha = Fecha
 	WHERE venta.id = Id;
 END ;;
 DELIMITER ;
@@ -657,13 +705,13 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `read_cliente`(Id INT)
 BEGIN
-	SELECT nombre, apellido, tarjeta
+	SELECT nombre, apellido, tarjeta, usuario, pass
     FROM cliente
     WHERE cliente.id = Id;
 END ;;
@@ -825,13 +873,13 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `read_venta`(Id INT)
 BEGIN
-	SELECT id_cliente
+	SELECT id_cliente, id_empleado, fecha
     FROM venta
     WHERE venta.id = Id;
 END ;;
@@ -871,4 +919,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-19 22:07:33
+-- Dump completed on 2021-06-21 23:38:13
