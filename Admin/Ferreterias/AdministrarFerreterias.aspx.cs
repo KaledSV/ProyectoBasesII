@@ -68,16 +68,19 @@ namespace BD_Proyecto
                     cmd.Parameters.Add("@ID", SqlDbType.Int).Value = idFerreteriaDrop.SelectedValue;
                     cmd.Parameters.Add("@Localizacion", SqlDbType.NVarChar).Value = locFerreteriaText.Text.Trim();
                     cmd.Parameters.Add("@Foto", SqlDbType.NVarChar).Value = imgFerreteriaText.Text.Trim();
-                    cmd.Parameters.Add("@Precio", SqlDbType.VarChar).Value = telFerreteriaText.Text.Trim();
+                    cmd.Parameters.Add("@Telefono", SqlDbType.VarChar).Value = telFerreteriaText.Text.Trim();
                     if (locFerreteriaText.Text.Trim() == string.Empty)
                     {
-                        cmd.Parameters.Add("@Fotografias", SqlDbType.Int).Value = null;
+                        cmd.Parameters.Add("@Localizacion", SqlDbType.Int).Value = null;
                     }
                     if (imgFerreteriaText.Text.Trim() == string.Empty)
                     {
-                        cmd.Parameters.Add("@Precio", SqlDbType.Money).Value = null;
+                        cmd.Parameters.Add("@Foto", SqlDbType.Money).Value = null;
                     }
-
+                    if (telFerreteriaText.Text.Trim() == string.Empty)
+                    {
+                        cmd.Parameters.Add("@Telefono", SqlDbType.Money).Value = null;
+                    }
                     con.Open();
                     cmd.ExecuteNonQuery();
 
