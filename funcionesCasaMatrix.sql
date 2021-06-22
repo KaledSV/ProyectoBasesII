@@ -113,19 +113,19 @@ AS
 	BEGIN TRAN
 	if (@Ferreteria = 1)
 		begin
-			IF (@Nombre = -1)
+			IF (@Nombre = null)
 					SET @Nombre = (SELECT nombre FROM FGAM...Departamento WHERE id = @ID);
 			EXEC ('Call modificarDepartamento(?, ?, ?)', @ID, @Nombre, @IdFerreteria) AT FGAM
 		end
 	if (@Ferreteria = 2)
 		begin
-			IF (@Nombre = -1)
+			IF (@Nombre = null)
 					SET @Nombre = (SELECT nombre FROM FNORTE...Departamento WHERE id = @ID);
 			EXEC ('Call modificarDepartamento(?, ?, ?)', @ID, @Nombre, @IdFerreteria) AT FNORTE
 		end
 	if (@Ferreteria = 3)
 		begin
-			IF (@Nombre = -1)
+			IF (@Nombre = null)
 					SET @Nombre = (SELECT nombre FROM FSUR...Departamento WHERE id = @ID);
 			EXEC ('Call modificarDepartamento(?, ?, ?)', @ID, @Nombre, @IdFerreteria) AT FSUR
 		end        
@@ -243,6 +243,210 @@ AS
 		end        
 	COMMIT
 GO
+
+IF OBJECT_ID('[dbo].[sp_create_cliente]') IS NOT NULL
+BEGIN 
+    DROP PROC [dbo].[sp_create_cliente] 
+END 
+GO
+CREATE PROC [dbo].[sp_create_cliente] 
+	@Nombre varchar(45),
+	@Apellido varchar(45),
+	@Tarjeta varchar(45),
+	@Usuario varchar(45),
+	@Pass varchar(45),
+	@Ferreteria int
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	BEGIN TRAN
+	if ((select count(*) from FGAM...cliente where usuario = @Usuario) > 0) 
+		or ((select count(*) from FNORTE...cliente where usuario = @Usuario) > 0)
+		or (select count(*) from FSUR...cliente where usuario = @Usuario) > 0
+		begin
+			Select 'El usuario ya ha sido tomado'
+			commit
+			return
+		end
+	if (@Ferreteria = 1)
+		begin
+			EXEC ('Call agregarCliente(?, ?, ?, ?, ?)', @Nombre, @Apellido, @Tarjeta, @Usuario, @Pass) AT FGAM
+			Select 'El usuario se ha registrado'		
+		end
+	if (@Ferreteria = 2)
+		begin
+			EXEC ('Call agregarCliente(?, ?, ?, ?, ?)', @Nombre, @Apellido, @Tarjeta, @Usuario, @Pass) AT FNORTE
+			Select 'El usuario se ha registrado'
+		end
+	if (@Ferreteria = 3)
+		begin
+			EXEC ('Call agregarCliente(?, ?, ?, ?, ?)', @Nombre, @Apellido, @Tarjeta, @Usuario, @Pass) AT FSUR
+			Select 'El usuario se ha registrado'
+		end        
+	COMMIT
+GO
+
+IF OBJECT_ID('[dbo].[sp_update_cliente]') IS NOT NULL
+BEGIN 
+    DROP PROC [dbo].[sp_update_cliente] 
+END 
+GO
+CREATE PROC [dbo].[sp_update_cliente]
+	@ID int,
+	@Nombre varchar(45),
+	@Apellido varchar(45),
+	@Tarjeta varchar(45),
+	@Usuario varchar(45),
+	@Pass varchar(45),
+	@Ferreteria int
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	BEGIN TRAN
+	if @Usuario is not null
+		begin
+			if ((select count(*) from FGAM...cliente where usuario = @Usuario) > 0) 
+				or ((select count(*) from FNORTE...cliente where usuario = @Usuario) > 0)
+				or (select count(*) from FSUR...cliente where usuario = @Usuario) > 0
+			begin
+				Select 'El usuario ya ha sido tomado'
+				commit
+				return
+			end
+		end
+	if (@Ferreteria = 1)
+		begin
+			IF (@Nombre = null)
+					SET @Nombre = (SELECT nombre FROM FGAM...Cliente WHERE id = @ID);
+			IF (@Apellido = null)
+					SET @Apellido = (SELECT apellido FROM FGAM...Cliente WHERE id = @ID);
+			IF (@Tarjeta = null)
+					SET @Tarjeta = (SELECT tarjeta FROM FGAM...Cliente WHERE id = @ID);
+			IF (@Usuario = null)
+					SET @Usuario = (SELECT usuario FROM FGAM...Cliente WHERE id = @ID);
+			IF (@Pass = null)
+					SET @Pass = (SELECT pass FROM FGAM...Cliente WHERE id = @ID);
+			EXEC ('Call modificarCliente(?, ?, ?, ?, ?, ?)',@ID, @Nombre, @Apellido, @Tarjeta, @Usuario, @Pass) AT FGAM
+			Select 'El usuario se ha modificado'		
+		end
+	if (@Ferreteria = 2)
+		begin
+			IF (@Nombre = null)
+					SET @Nombre = (SELECT nombre FROM FNORTE...Cliente WHERE id = @ID);
+			IF (@Apellido = null)
+					SET @Apellido = (SELECT apellido FROM FNORTE...Cliente WHERE id = @ID);
+			IF (@Tarjeta = null)
+					SET @Tarjeta = (SELECT tarjeta FROM FNORTE...Cliente WHERE id = @ID);
+			IF (@Usuario = null)
+					SET @Usuario = (SELECT usuario FROM FNORTE...Cliente WHERE id = @ID);
+			IF (@Pass = null)
+					SET @Pass = (SELECT pass FROM FNORTE...Cliente WHERE id = @ID);
+			EXEC ('Call modificarCliente(?, ?, ?, ?, ?, ?)',@ID, @Nombre, @Apellido, @Tarjeta, @Usuario, @Pass) AT FNORTE
+			Select 'El usuario se ha modificado'	
+		end
+	if (@Ferreteria = 3)
+		begin
+			IF (@Nombre = null)
+					SET @Nombre = (SELECT nombre FROM FSUR...Cliente WHERE id = @ID);
+			IF (@Apellido = null)
+					SET @Apellido = (SELECT apellido FROM FSUR...Cliente WHERE id = @ID);
+			IF (@Tarjeta = null)
+					SET @Tarjeta = (SELECT tarjeta FROM FSUR...Cliente WHERE id = @ID);
+			IF (@Usuario = null)
+					SET @Usuario = (SELECT usuario FROM FSUR...Cliente WHERE id = @ID);
+			IF (@Pass = null)
+					SET @Pass = (SELECT pass FROM FSUR...Cliente WHERE id = @ID);
+			EXEC ('Call modificarCliente(?, ?, ?, ?, ?, ?)',@ID, @Nombre, @Apellido, @Tarjeta, @Usuario, @Pass) AT FSUR
+			Select 'El usuario se ha modificado'	
+		end        
+	COMMIT
+GO
+
+IF OBJECT_ID('[dbo].[sp_create_direccion]') IS NOT NULL
+BEGIN 
+    DROP PROC [dbo].[sp_create_direccion] 
+END 
+GO
+CREATE PROC [dbo].[sp_create_direccion] 
+	@IDCliente int,
+	@Descripcion varchar(100),
+	@Localizacion nvarchar,
+	@Ferreteria int
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	BEGIN TRAN
+	if (@Ferreteria = 1)
+		begin
+			EXEC ('Call agregarCliente(?, ?, geometry::STGeomFromText(?, 0))', @IDCliente, @Descripcion, @Localizacion) AT FGAM
+		end
+	if (@Ferreteria = 2)
+		begin
+			EXEC ('Call agregarCliente(?, ?, geometry::STGeomFromText(?, 0))', @IDCliente, @Descripcion, @Localizacion) AT FNORTE
+		end
+	if (@Ferreteria = 3)
+		begin
+			EXEC ('Call agregarCliente(?, ?, geometry::STGeomFromText(?, 0))', @IDCliente, @Descripcion, @Localizacion) AT FSUR
+		end        
+	COMMIT
+GO
+
+IF OBJECT_ID('[dbo].[sp_update_direccion]') IS NOT NULL
+BEGIN 
+    DROP PROC [dbo].[sp_update_direccion] 
+END 
+GO
+CREATE PROC [dbo].[sp_update_direccion] 
+	@ID int,
+	@IDCliente int,
+	@Descripcion varchar(100),
+	@Localizacion nvarchar,
+	@Ferreteria int
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	BEGIN TRAN
+	if (@Ferreteria = 1)
+		begin
+			IF (@Descripcion = null)
+					SET @Descripcion = (SELECT descripcion FROM FGAM...Direccion WHERE id = @ID);
+			IF (@Localizacion = null)
+					SET @Localizacion = (SELECT cast(localizacion as varbinary(max)) FROM FGAM...Direccion WHERE id = @ID);
+			EXEC ('Call modificarDireccion(?, ?, ?, geometry::STGeomFromText(?, 0))',@ID, @IDCliente, @Descripcion, @Localizacion) AT FGAM
+		end
+	if (@Ferreteria = 2)
+		begin
+			IF (@Descripcion = null)
+					SET @Descripcion = (SELECT descripcion FROM FGAM...Direccion WHERE id = @ID);
+			IF (@Localizacion = null)
+					SET @Localizacion = (SELECT cast(localizacion as varbinary(max)) FROM FGAM...Direccion WHERE id = @ID);
+			EXEC ('Call modificarDireccion(?, ?, ?, geometry::STGeomFromText(?, 0))',@ID, @IDCliente, @Descripcion, @Localizacion) AT FNORTE
+		end
+	if (@Ferreteria = 3)
+		begin
+			IF (@Descripcion = null)
+					SET @Descripcion = (SELECT descripcion FROM FGAM...Direccion WHERE id = @ID);
+			IF (@Localizacion = null)
+					SET @Localizacion = (SELECT cast(localizacion as varbinary(max)) FROM FGAM...Direccion WHERE id = @ID);
+			EXEC ('Call modificarDireccion(?, ?, ?, geometry::STGeomFromText(?, 0))',@ID, @IDCliente, @Descripcion, @Localizacion) AT FSUR
+		end        
+	COMMIT
+GO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 IF OBJECT_ID('[dbo].[buscarUsuario]') IS NOT NULL
 BEGIN 
