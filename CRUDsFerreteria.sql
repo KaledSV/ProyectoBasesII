@@ -455,7 +455,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `modificacrDepartamento`(Id int, Nombre VARCHAR(45), IdFerreteria INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `modificarDepartamento`(Id int, Nombre VARCHAR(45), IdFerreteria INT)
 BEGIN
 	UPDATE departamento
     SET nombre = Nombre,

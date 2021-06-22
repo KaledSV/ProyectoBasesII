@@ -59,7 +59,7 @@ AS
 	BEGIN TRAN
 
 	UPDATE [dbo].[Ferreteria]
-	SET    [Localizacion] = @Localizacion, [Foto] = @Foto, [Telefono] = @Telefono
+	SET    [Localizacion] = isNull(@Localizacion, [Localizacion]), [Foto] = isNull(@Foto, [Foto]), [Telefono] = isNull(@Telefono, [Telefono])
 	WHERE  [ID] = @ID
 	
 
