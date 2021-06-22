@@ -14,7 +14,10 @@ namespace BD_Proyecto
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["admin"].Equals(0))
+            {
+                Page.Response.Redirect("~/Default.aspx", true);
+            }
         }
 
         protected void SqlDataSource2_Selecting(object sender, SqlDataSourceSelectingEventArgs e)

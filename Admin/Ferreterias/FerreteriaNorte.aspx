@@ -159,10 +159,10 @@
                 <asp:DropDownList ID="idEstanteInventarioDrop" runat="server" DataSourceID="SqlDataSource4" DataValueField="id" ForeColor="Black"></asp:DropDownList>
             </td>
             <td> 
-                <asp:Button ID="InventarioInsert" runat="server" Text="Insert"/>
+                <asp:Button ID="InventarioInsert" runat="server" Text="Insert" OnClick="InventarioInsert_Click"/>
             </td>
             <td> 
-                <asp:Button ID="InventarioUpdate" runat="server" Text="Update" />
+                <asp:Button ID="InventarioUpdate" runat="server" Text="Update" OnClick="InventarioUpdate_Click" />
             </td>
             <td> 
                 <asp:Label ID="errInventario" runat="server" Text=""></asp:Label>
@@ -297,10 +297,10 @@
                 <asp:TextBox ID="idFerreteriaDepartamentoText" runat="server" ReadOnly="True" Text="1"></asp:TextBox>
             </td>
             <td> 
-                <asp:Button ID="DepartamentoInsert" runat="server" Text="Insert"/>
+                <asp:Button ID="DepartamentoInsert" runat="server" Text="Insert" OnClick="DepartamentoInsert_Click"/>
             </td>
             <td> 
-                <asp:Button ID="DepartamentoUpdate" runat="server" Text="Update"/>
+                <asp:Button ID="DepartamentoUpdate" runat="server" Text="Update" OnClick="DepartamentoUpdate_Click"/>
             </td>
             <td> 
                 <asp:Label ID="ErrDepartamento" runat="server" Text=""></asp:Label>
@@ -415,10 +415,10 @@
                 <asp:DropDownList ID="idDepartamentoPasilloDrop" runat="server" DataSourceID="SqlDataSource2" DataValueField="id" ForeColor="Black"></asp:DropDownList>
             </td>
             <td> 
-                <asp:Button ID="PasilloInsert" runat="server" Text="Insert"/>
+                <asp:Button ID="PasilloInsert" runat="server" Text="Insert" OnClick="PasilloInsert_Click"/>
             </td>
             <td> 
-                <asp:Button ID="PasilloUpdate" runat="server" Text="Update"/>
+                <asp:Button ID="PasilloUpdate" runat="server" Text="Update" OnClick="PasilloUpdate_Click"/>
             </td>
             <td> 
                 <asp:Label ID="errPasillo" runat="server" Text=""></asp:Label>
@@ -533,10 +533,10 @@
                 <asp:DropDownList ID="idPasilloEstanteDrop" runat="server" DataSourceID="SqlDataSource3" DataValueField="id" ForeColor="Black"></asp:DropDownList>
             </td>
             <td> 
-                <asp:Button ID="EstanteInsert" runat="server" Text="Insert"/>
+                <asp:Button ID="EstanteInsert" runat="server" Text="Insert" OnClick="EstanteInsert_Click"/>
             </td>
             <td> 
-                <asp:Button ID="EstanteUpdate" runat="server" Text="Update"/>
+                <asp:Button ID="EstanteUpdate" runat="server" Text="Update" OnClick="EstanteUpdate_Click"/>
             </td>
             <td> 
                 <asp:Label ID="errEstante" runat="server" Text=""></asp:Label>

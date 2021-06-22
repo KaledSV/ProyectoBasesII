@@ -162,11 +162,11 @@
     <Content Include="ProductDetails.aspx" />
     <Content Include="AgregarACarrito.aspx" />
     <Content Include="Account\Register.aspx" />
-    <Content Include="AdministrarProductos.aspx" />
-    <Content Include="AdministrarMarcaProveedor.aspx" />
+    <Content Include="Admin\Productos\AdministrarProductos.aspx" />
+    <Content Include="Admin\Productos\AdministrarMarcaProveedor.aspx" />
     <Content Include="Admin\Ferreterias\AdministrarFerreterias.aspx" />
     <Content Include="Admin\Ferreterias\FerreteriaGAM.aspx" />
-    <Content Include="AdministrarEmpleados.aspx" />
+    <Content Include="Admin\Empleados\AdministrarEmpleados.aspx" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Productos_img\control.jpg" />
     <Content Include="Productos_img\iphone-7-black.jpg" />
@@ -304,18 +304,18 @@
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdministrarProductos.aspx.cs">
+    <Compile Include="Admin\Productos\AdministrarProductos.aspx.cs">
       <DependentUpon>AdministrarProductos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdministrarProductos.aspx.designer.cs">
+    <Compile Include="Admin\Productos\AdministrarProductos.aspx.designer.cs">
       <DependentUpon>AdministrarProductos.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdministrarMarcaProveedor.aspx.cs">
+    <Compile Include="Admin\Productos\AdministrarMarcaProveedor.aspx.cs">
       <DependentUpon>AdministrarMarcaProveedor.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdministrarMarcaProveedor.aspx.designer.cs">
+    <Compile Include="Admin\Productos\AdministrarMarcaProveedor.aspx.designer.cs">
       <DependentUpon>AdministrarMarcaProveedor.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Ferreterias\AdministrarFerreterias.aspx.cs">
@@ -332,15 +332,17 @@
     <Compile Include="Admin\Ferreterias\FerreteriaGAM.aspx.designer.cs">
       <DependentUpon>FerreteriaGAM.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdministrarEmpleados.aspx.cs">
+    <Compile Include="Admin\Empleados\AdministrarEmpleados.aspx.cs">
       <DependentUpon>AdministrarEmpleados.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdministrarEmpleados.aspx.designer.cs">
+    <Compile Include="Admin\Empleados\AdministrarEmpleados.aspx.designer.cs">
       <DependentUpon>AdministrarEmpleados.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Admin\Clientes\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />

@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Diagnostics;
 using System.Data;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace BD_Proyecto
 {
@@ -14,7 +15,10 @@ namespace BD_Proyecto
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["admin"].Equals(0))
+            {
+                Page.Response.Redirect("~/Default.aspx", true);
+            }
         }
 
         protected void FerreteriaInsert_Click(object sender, EventArgs e)
@@ -34,44 +38,55 @@ namespace BD_Proyecto
                 errFerreteria.Text = "el telefono es necesario";
                 return;
             }
-
-            string connString = @"Server =LAPTOP-R470LE7F\NITROSODB; Database = CasaMatriz; Trusted_Connection = True;"; //Conexion a casa matriz
-            try
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["BD_Proyecto"].ConnectionString))
             {
-                using (SqlConnection conn = new SqlConnection(connString))
+                using (SqlCommand cmd = new SqlCommand("sp_create_ferreteria", con))
                 {
-                    SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "sp_create_ferreteria";
+                    cmd.Parameters.Add("@Localizacion", SqlDbType.NVarChar).Value = locFerreteriaText.Text.Trim();
+                    cmd.Parameters.Add("@Foto", SqlDbType.NVarChar).Value = imgFerreteriaText.Text.Trim();
+                    cmd.Parameters.Add("@Precio", SqlDbType.VarChar).Value = telFerreteriaText.Text.Trim();
 
-                    cmd.Parameters.Add("@Localizacion", SqlDbType.VarBinary);
-                    cmd.Parameters.Add("@Foto", SqlDbType.VarBinary);
-                    cmd.Parameters.Add("@Telefono", SqlDbType.VarChar);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
 
-                    cmd.Parameters["@Localizacion"].Value = locFerreteriaText.Text;
-                    cmd.Parameters["@Foto"].Value = imgFerreteriaText.Text;
-                    cmd.Parameters["@Telefono"].Value = telFerreteriaText.Text;
-
-                    cmd.Connection = conn;
-                    conn.Open();
+                    locFerreteriaText.Text = string.Empty;
+                    imgFerreteriaText.Text = string.Empty;
+                    telFerreteriaText.Text = string.Empty;
+                    Page.Response.Redirect(Page.Request.Url.ToString(), true);
                 }
-            }
-            catch (Exception ex)
-            {
-                //display error message
-                Console.WriteLine("Exception: " + ex.Message);
-                Debug.WriteLine("ded");
             }
         }
 
         protected void FerreteriaUpdate_Click(object sender, EventArgs e)
         {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["BD_Proyecto"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_update_producto", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = idFerreteriaDrop.SelectedValue;
+                    cmd.Parameters.Add("@Localizacion", SqlDbType.NVarChar).Value = locFerreteriaText.Text.Trim();
+                    cmd.Parameters.Add("@Foto", SqlDbType.NVarChar).Value = imgFerreteriaText.Text.Trim();
+                    cmd.Parameters.Add("@Precio", SqlDbType.VarChar).Value = telFerreteriaText.Text.Trim();
+                    if (locFerreteriaText.Text.Trim() == string.Empty)
+                    {
+                        cmd.Parameters.Add("@Fotografias", SqlDbType.Int).Value = null;
+                    }
+                    if (imgFerreteriaText.Text.Trim() == string.Empty)
+                    {
+                        cmd.Parameters.Add("@Precio", SqlDbType.Money).Value = null;
+                    }
 
-        }
+                    con.Open();
+                    cmd.ExecuteNonQuery();
 
-        protected void Ferreterias_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+                    locFerreteriaText.Text = string.Empty;
+                    imgFerreteriaText.Text = string.Empty;
+                    telFerreteriaText.Text = string.Empty;
+                    Page.Response.Redirect(Page.Request.Url.ToString(), true);
+                }
+            }
         }
 
         protected void adminFerreteria_Click(object sender, EventArgs e)
