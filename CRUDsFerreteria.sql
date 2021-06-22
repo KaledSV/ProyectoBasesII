@@ -162,6 +162,7 @@ DROP TABLE IF EXISTS `venta`;
 CREATE TABLE `venta` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_cliente` int NOT NULL,
+  `id_empleado` int NOT NULL,
   `fecha` date NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_cliente_idx` (`id_cliente`),
