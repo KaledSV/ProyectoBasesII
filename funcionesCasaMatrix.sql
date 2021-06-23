@@ -718,3 +718,51 @@ SET NOCOUNT ON
 SET NOCOUNT OFF
 END
 GO
+
+IF OBJECT_ID('[dbo].[mejorEmpleado]') IS NOT NULL
+BEGIN 
+    DROP PROC [dbo].[mejorEmpleado] 
+END 
+GO
+CREATE PROC [dbo].[mejorEmpleado] 
+	@FechaI Date,
+	@FechaF Date,
+	@Ferreteria int
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	BEGIN TRAN
+	Declare @idMejor table (id int);
+	Declare @mejorVentas int;
+	if (@Ferreteria = 1)
+		begin
+			insert into @idMejor Select mejor.id_cliente from (Select id_cliente, count(*) as ventas from FGAM...venta where fecha between @FechaI and @FechaF group by id_cliente) as mejor order by mejor.ventas desc
+		end
+	if (@Ferreteria = 2)
+		begin
+			insert into @idMejor Select mejor.id_cliente from (Select id_cliente, count(*) as ventas from FNORTE...venta where fecha between @FechaI and @FechaF group by id_cliente) as mejor order by mejor.ventas desc
+		end
+	if (@Ferreteria = 3)
+		begin
+			insert into @idMejor Select mejor.id_cliente from (Select id_cliente, count(*) as ventas from FSUR...venta where fecha between @FechaI and @FechaF group by id_cliente) as mejor order by mejor.ventas desc
+		end  
+	If (Select count(*) from @idMejor where id not in (select IDEmpleado from Amonestacion where fecha between DATEADD(month, 6, @FechaF) and @FechaF)) > 0
+		begin
+			declare @trueMejor int 
+			Set @trueMejor = (Select top(1) id from @idMejor where id not in (select IDEmpleado from Amonestacion where fecha between DATEADD(month, -6, @FechaF) and @FechaF))
+			if (Select FechaIngreso from Empleado where id = @trueMejor) <= DATEADD(year, -5, @FechaF)
+				Begin
+					Declare @i int = 1;
+					while 1=1
+						begin
+							if (Select FechaIngreso from Empleado where id = @trueMejor) between DATEADD(year, -8 * @i, @FechaF) and DATEADD(year, -5 * @i, @FechaF)
+								begin
+									update Empleado set NumVacaciones = NumVacaciones + (2 * @i) where id = @trueMejor
+									break;
+								end
+							Set @i = @i + 1
+						end
+				end
+		end
+	COMMIT
+GO
