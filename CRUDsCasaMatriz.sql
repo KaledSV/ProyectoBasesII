@@ -255,8 +255,8 @@ GO
 CREATE PROC [dbo].[sp_update_amonestacion] 
     @ID INT,
     @IDEmpleado INT,
-    @Fecha DATE,
-    @Monto Money
+    @Fecha as DATE = null,
+    @Monto as Money = null
 AS 
 	SET NOCOUNT ON 
 	SET XACT_ABORT ON  
@@ -264,7 +264,7 @@ AS
 	BEGIN TRAN
 
 	UPDATE [dbo].[Amonestacion]
-	SET    [IDEmpleado] = @IDEmpleado, [Fecha] = @Fecha, [Monto] = @Monto
+	SET    [IDEmpleado] = @IDEmpleado, [Fecha] = ISNULL(@Fecha,(SELECT Fecha FROM Amonestacion WHERE ID = @ID)), [Monto] = ISNULL(@Monto,(SELECT Monto FROM Amonestacion WHERE ID = @ID))
 	WHERE  [ID] = @ID
 	
 	
