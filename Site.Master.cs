@@ -48,7 +48,6 @@ namespace BD_Proyecto
             }
 
             Page.PreLoad += master_Page_PreLoad;
-            Session["admin"] = 0;
         }
         protected void master_Page_PreLoad(object sender, EventArgs e)
         {
