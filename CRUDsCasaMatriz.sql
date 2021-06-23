@@ -125,15 +125,17 @@ CREATE PROC [dbo].[sp_create_empleado]
 	@Apellido varchar(50),
 	@Foto image,
     @FechaIngreso Date,
-	@Activo Bit
+	@Activo Bit,
+	@NumVacaciones int,
+	@IDTipoEmpleado int
 AS 
 	SET NOCOUNT ON 
 	SET XACT_ABORT ON  
 	
 	BEGIN TRAN
 	
-	INSERT INTO [dbo].[Empleado] ([IDFerreteria], [Nombre], [Apellido], [Foto], [FechaIngreso], [Activo])
-	SELECT @IDFerreteria, @Nombre, @Apellido, @Foto, @FechaIngreso, @Activo
+	INSERT INTO [dbo].[Empleado] ([IDFerreteria], [Nombre], [Apellido], [Foto], [FechaIngreso], [Activo], [NumVacaciones], [IDTipoEmpleado])
+	SELECT @IDFerreteria, @Nombre, @Apellido, @Foto, @FechaIngreso, @Activo, @NumVacaciones, @IDTipoEmpleado
 	
                
 	COMMIT
@@ -150,7 +152,9 @@ CREATE PROC [dbo].[sp_update_empleado]
 	@Apellido as varchar(50) = null,
 	@Foto as image = null,
     @FechaIngreso as Date = null,
-	@Activo Bit
+	@Activo Bit,
+	@NumVacaciones as int = null,
+	@IDTipoEmpleado int
 AS 
 	SET NOCOUNT ON 
 	SET XACT_ABORT ON  
@@ -163,7 +167,9 @@ AS
 		   [Apellido] = ISNULL(@Apellido,(SELECT Apellido FROM Empleado WHERE ID = @ID)), 
 		   [Foto] = ISNULL(@Foto,(SELECT Foto FROM Empleado WHERE ID = @ID)), 
 		   [FechaIngreso] = ISNULL(@FechaIngreso,(SELECT FechaIngreso FROM Empleado WHERE ID = @ID)), 
-		   [Activo] = @Activo
+		   [Activo] = @Activo,
+		   [NumVacaciones] = ISNULL(@NumVacaciones,(SELECT NumVacaciones FROM Empleado WHERE ID = @ID)), 
+		   [IDTipoEmpleado] = ISNULL(@IDTipoEmpleado, (SELECT IDTipoEmpleado FROM Empleado WHERE ID = @ID))
 	WHERE  [ID] = @ID
 	
 
@@ -1044,6 +1050,59 @@ AS
 	DELETE
 	FROM   [dbo].[Inventario]
 	WHERE  [ID] = @ID
+
+	COMMIT
+GO
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+
+USE [CasaMatriz];
+GO
+
+IF OBJECT_ID('[dbo].[sp_create_tipoempleado] IS NOT NULL
+BEGIN 
+    DROP PROC [dbo].[sp_create_tipoempleado] 
+END 
+GO
+CREATE PROC [dbo].[sp_create_tipoempleado] 
+    @nombre varchar(30),
+	@descripcion varchar(30)
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+
+	INSERT INTO [dbo].[TipoEmpleado] ([nombre],[descripcion])
+	SELECT @nombre, @descripcion
+		
+
+
+	COMMIT
+GO
+
+IF OBJECT_ID('[dbo].[sp_update_tipoempleado] IS NOT NULL
+BEGIN 
+    DROP PROC [dbo].[sp_update_tipoempleado] 
+END 
+GO
+CREATE PROC [dbo].[sp_update_tipoempleado] 
+	@ID int,
+    @nombre as varchar(30) = null,
+	@descripcion as varchar(30) = null
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+
+	UPDATE [dbo].[TipoEmpleado]
+	SET    [nombre] = ISNULL(@nombre,(SELECT nombre FROM TipoEmpleado WHERE ID = @ID)), 
+		   [descripcion] = ISNULL(@descripcion,(SELECT descripcion FROM TipoEmpleado WHERE ID = @ID))
+	WHERE  [ID] = @ID
+	
+		
+
 
 	COMMIT
 GO
