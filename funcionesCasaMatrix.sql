@@ -599,32 +599,28 @@ CREATE PROCEDURE [dbo].[venta]
 AS
 BEGIN
 SET NOCOUNT ON
-	BEGIN TRY
+	BEGIN
 		DECLARE @fecha DATE
 		SET @fecha = GETDATE()
 		IF @fereteria = 1
 			BEGIN
-				EXEC ('Call agregarVenta(?, ?, ?)', @IdCliente, -1, @fecha) AT FGAM
-				SELECT Id
+				EXEC ('call agregarVenta(?, ?, ?)', @IdCliente, -1, @fecha) AT FGAM
+				SELECT id
 				FROM OPENQUERY([FGAM],'SELECT LAST_INSERT_ID() as id;');
 			END
 		IF @fereteria = 2
 			BEGIN
-				EXEC ('Call agregarVenta(?, ?, ?)', @IdCliente, -1, @fecha) AT FNORTE
-				SELECT Id
+				EXEC ('call agregarVenta(?, ?, ?)', @IdCliente, -1, @fecha) AT FNORTE
+				SELECT id
 				FROM OPENQUERY([FNORTE],'SELECT LAST_INSERT_ID() as id;');
 			END
-		ELSE
+		IF @fereteria = 3
 			BEGIN
-				EXEC ('Call agregarVenta(?, ?, ?)', @IdCliente, -1, @fecha)  AT FSUR
-				SELECT Id
+				EXEC ('call agregarVenta(?, ?, ?)', @IdCliente, -1, @fecha)  AT FSUR
+				SELECT id
 				FROM OPENQUERY([FSUR],'SELECT LAST_INSERT_ID() as id;');
 			END
-	END TRY
-
-	BEGIN CATCH
-		SELECT -1
-	END CATCH
+	END
 SET NOCOUNT OFF
 END
 GO
@@ -652,7 +648,7 @@ SET NOCOUNT ON
 			BEGIN
 				EXEC ('Call agregarVentaProducto(?, ?, ?)', @IdVenta, @IdProducto, @Cantidad) AT FNORTE
 			END
-		ELSE
+		IF @fereteria = 3
 			BEGIN
 				EXEC ('Call agregarVentaProducto(?, ?, ?)', @IdVenta, @IdProducto, @Cantidad) AT FSUR
 			END
