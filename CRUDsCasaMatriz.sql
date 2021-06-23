@@ -145,11 +145,11 @@ END
 GO
 CREATE PROC [dbo].[sp_update_empleado] 
     @ID int,
-	@IDFerreteria int,
-    @Nombre varchar(50),
-	@Apellido varchar(50),
-	@Foto image,
-    @FechaIngreso Date,
+	@IDFerreteria as int = null,
+    @Nombre as varchar(50) = null,
+	@Apellido as varchar(50) = null,
+	@Foto as image = null,
+    @FechaIngreso as Date = null,
 	@Activo Bit
 AS 
 	SET NOCOUNT ON 
@@ -158,7 +158,12 @@ AS
 	BEGIN TRAN
 
 	UPDATE [dbo].[Empleado]
-	SET    [IDFerreteria] = @IDFerreteria, [Nombre] = @Nombre, [Apellido] = @Apellido, [Foto] = @Foto, [FechaIngreso] = @FechaIngreso, [Activo] = @Activo
+	SET    [IDFerreteria] = ISNULL(@IDFerreteria,(SELECT IDFerreteria FROM Empleado WHERE ID = @ID)), 
+		   [Nombre] = ISNULL(@Nombre,(SELECT Nombre FROM Empleado WHERE ID = @ID)), 
+		   [Apellido] = ISNULL(@Apellido,(SELECT Apellido FROM Empleado WHERE ID = @ID)), 
+		   [Foto] = ISNULL(@Foto,(SELECT Foto FROM Empleado WHERE ID = @ID)), 
+		   [FechaIngreso] = ISNULL(@FechaIngreso,(SELECT FechaIngreso FROM Empleado WHERE ID = @ID)), 
+		   [Activo] = @Activo
 	WHERE  [ID] = @ID
 	
 
@@ -170,6 +175,7 @@ AS
 
 	COMMIT
 GO
+
 IF OBJECT_ID('[dbo].[sp_delete_empleado]') IS NOT NULL
 BEGIN 
     DROP PROC [dbo].[sp_delete_empleado] 
@@ -427,9 +433,9 @@ END
 GO
 CREATE PROC [dbo].[sp_update_modelo] 
     @ID INT,
-    @Anio Date,
-    @Descripcion varchar(50),
-	@LitrosXKilometro Money,
+    @Anio as Date = null,
+    @Descripcion as varchar(50) = null,
+	@LitrosXKilometro as Money = null,
     @IDMarcaVehiculo INT
 AS 
 	SET NOCOUNT ON 
@@ -438,7 +444,7 @@ AS
 	BEGIN TRAN
 
 	UPDATE [dbo].[Modelo]
-	SET    [Anio] = @Anio, [Descripcion] = @Descripcion, [LitrosXKilometro] = @LitrosXKilometro, [IDMarcaVehiculo] = @IDMarcaVehiculo
+	SET    [Anio] = ISNULL(@Anio,(SELECT Anio FROM Modelo WHERE ID = @ID)), [Descripcion] = ISNULL(@Descripcion,(SELECT Descripcion FROM Modelo WHERE ID = @ID)), [LitrosXKilometro] = ISNULL(@LitrosXKilometro,(SELECT LitrosXKilometro FROM Modelo WHERE ID = @ID)), [IDMarcaVehiculo] = @IDMarcaVehiculo
 	WHERE  [ID] = @ID
 	
 	
@@ -520,7 +526,7 @@ END
 GO
 CREATE PROC [dbo].[sp_update_vehiculo] 
     @ID INT,
-    @Placa varchar(50),
+    @Placa as varchar(50) = null,
 	@IDModelo INT
 AS 
 	SET NOCOUNT ON 
@@ -529,7 +535,7 @@ AS
 	BEGIN TRAN
 
 	UPDATE [dbo].[Vehiculo]
-	SET    [Placa] = @Placa, [IDModelo] = @IDModelo
+	SET    [Placa] = ISNULL(@Placa,(SELECT Placa FROM Vehiculo WHERE ID = @ID)), [IDModelo] = @IDModelo
 	WHERE  [ID] = @ID
 	
 	

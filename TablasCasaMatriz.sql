@@ -13,6 +13,13 @@ CREATE TABLE Ferreteria (
 	  PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 
+CREATE TABLE TipoEmpleado(
+	  [ID]					INT NOT NULL IDENTITY(1,1),
+	  [nombre]				varchar(30) NOT NULL,
+	  [descripcion]			varchar(30) NOT NULL,
+	  PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+
 CREATE TABLE Empleado (
 	  [ID]					INT NOT NULL IDENTITY(1,1),
 	  [IDFerreteria]		INT NOT NULL,
@@ -21,8 +28,20 @@ CREATE TABLE Empleado (
 	  [Foto]		   	  	IMAGE NOT NULL,
 	  [FechaIngreso]		Date NOT NULL,
 	  [Activo]				Bit NOT NULL,
+	  [NumVacaciones]		INT NOT NULL,
+	  [IDTipoEmpleado]		INT NOT NULL,
 	  PRIMARY KEY CLUSTERED ([ID] ASC),
-	  FOREIGN KEY ([IDFerreteria]) REFERENCES [dbo].[Ferreteria] ([ID])
+	  FOREIGN KEY ([IDFerreteria]) REFERENCES [dbo].[Ferreteria] ([ID]),
+	  FOREIGN KEY ([IDTipoEmpleado]) REFERENCES [dbo].[TipoEmpleado] ([ID])
+);
+
+CREATE TABLE VacacionesXEmpleado (
+	  [ID]					INT NOT NULL IDENTITY(1,1),
+	  [IDEmpleado]			INT NOT NULL,
+	  [FechaInicio]			Date NOT NULL,
+	  [FechaFinal]			Date,
+	  PRIMARY KEY CLUSTERED ([ID] ASC),
+	  FOREIGN KEY ([IDEmpleado]) REFERENCES [dbo].[Empleado] ([ID])
 );
 
 CREATE TABLE Amonestacion (
