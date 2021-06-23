@@ -387,14 +387,15 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `agregarVenta`(IdCliente INT, IdEmpleado INT, Fecha DATE)
 BEGIN
 	INSERT INTO venta(id_cliente, id_empleado, fecha)
 	VALUES(IdCliente, IdEmpleado, Fecha);
+    SELECT LAST_INSERT_ID();
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -407,13 +408,26 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `agregarVentaProducto`(IdVenta INT, IdProducto INT, 
-Cantidad INT, Backorder BIT)
+Cantidad INT)
 BEGIN
+	DECLARE Backorder BIT;
+	DECLARE Disponibles INT;
+    
+    SELECT cantidad INTO Disponibles
+    FROM inventario
+    WHERE inventario.id_producto = IdProducto;
+    
+    IF Cantidad > Disponibles THEN
+		SET Backorder = 1;
+	ELSE
+		SET Backorder = 0;
+	END IF;
+    
 	INSERT INTO venta_producto(id_venta,
 								id_producto,
 								cantidad,
@@ -919,4 +933,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-21 23:38:13
+-- Dump completed on 2021-06-22 20:06:39

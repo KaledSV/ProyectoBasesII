@@ -541,3 +541,126 @@ SET NOCOUNT ON
 SET NOCOUNT OFF
 END
 GO
+
+IF OBJECT_ID('[dbo].[filtarProvedor]') IS NOT NULL
+BEGIN 
+    DROP PROC [dbo].[filtarProvedor]
+END 
+GO
+CREATE PROCEDURE [dbo].[filtarProvedor]
+	@provedor INT
+AS
+BEGIN
+SET NOCOUNT ON
+	BEGIN TRY
+		SELECT [ID],[IDMarca],[IDProvedor],[Nombre],[Descripcion],[Fotografias],[Codigo],[Precio]
+		FROM [dbo].[Producto]
+		WHERE ([IDProvedor] = @provedor)
+	END TRY
+
+	BEGIN CATCH
+		SELECT -1
+	END CATCH
+SET NOCOUNT OFF
+END
+GO
+
+IF OBJECT_ID('[dbo].[filtarMarca]') IS NOT NULL
+BEGIN 
+    DROP PROC [dbo].[filtarMarca]
+END 
+GO
+CREATE PROCEDURE [dbo].[filtarMarca]
+	@marca INT
+AS
+BEGIN
+SET NOCOUNT ON
+	BEGIN TRY
+		SELECT [ID],[IDMarca],[IDProvedor],[Nombre],[Descripcion],[Fotografias],[Codigo],[Precio]
+		FROM [dbo].[Producto]
+		WHERE ([IDMarca] = @marca)
+	END TRY
+
+	BEGIN CATCH
+		SELECT -1
+	END CATCH
+SET NOCOUNT OFF
+END
+GO
+
+IF OBJECT_ID('[dbo].[venta]') IS NOT NULL
+BEGIN 
+    DROP PROC [dbo].[venta]
+END 
+GO
+CREATE PROCEDURE [dbo].[venta]
+	@fereteria INT,
+	@IdCliente INT
+AS
+BEGIN
+SET NOCOUNT ON
+	BEGIN TRY
+		DECLARE @fecha DATE
+		SET @fecha = GETDATE()
+		IF @fereteria = 1
+			BEGIN
+				EXEC ('Call agregarVenta(?, ?, ?)', @IdCliente, -1, @fecha) AT FGAM
+				SELECT Id
+				FROM OPENQUERY([FGAM],'SELECT LAST_INSERT_ID() as id;');
+			END
+		IF @fereteria = 2
+			BEGIN
+				EXEC ('Call agregarVenta(?, ?, ?)', @IdCliente, -1, @fecha) AT FNORTE
+				SELECT Id
+				FROM OPENQUERY([FNORTE],'SELECT LAST_INSERT_ID() as id;');
+			END
+		ELSE
+			BEGIN
+				EXEC ('Call agregarVenta(?, ?, ?)', @IdCliente, -1, @fecha)  AT FSUR
+				SELECT Id
+				FROM OPENQUERY([FSUR],'SELECT LAST_INSERT_ID() as id;');
+			END
+	END TRY
+
+	BEGIN CATCH
+		SELECT -1
+	END CATCH
+SET NOCOUNT OFF
+END
+GO
+
+IF OBJECT_ID('[dbo].[ventaProducto]') IS NOT NULL
+BEGIN 
+    DROP PROC [dbo].[ventaProducto]
+END 
+GO
+CREATE PROCEDURE [dbo].[ventaProducto]
+	@fereteria INT,
+	@IdVenta INT,
+	@IdProducto INT,
+	@Cantidad INT
+
+AS
+BEGIN
+SET NOCOUNT ON
+	BEGIN TRY
+		IF @fereteria = 1
+			BEGIN
+				EXEC ('Call agregarVentaProducto(?, ?, ?)', @IdVenta, @IdProducto, @Cantidad) AT FGAM
+			END
+		IF @fereteria = 2
+			BEGIN
+				EXEC ('Call agregarVentaProducto(?, ?, ?)', @IdVenta, @IdProducto, @Cantidad) AT FNORTE
+			END
+		ELSE
+			BEGIN
+				EXEC ('Call agregarVentaProducto(?, ?, ?)', @IdVenta, @IdProducto, @Cantidad) AT FSUR
+			END
+	END TRY
+
+	BEGIN CATCH
+		SELECT -1
+	END CATCH
+SET NOCOUNT OFF
+END
+GO
