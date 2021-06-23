@@ -79,6 +79,7 @@ CREATE TABLE `entrega` (
   `id_empleado` int NOT NULL,
   `id_vehiculo` int NOT NULL,
   `llego_bien` bit(1) NOT NULL,
+  `entregado` bit(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_venta_idx` (`id_venta`),
   CONSTRAINT `id_venta_entrega` FOREIGN KEY (`id_venta`) REFERENCES `venta` (`id`)
@@ -271,11 +272,11 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `agregarEntrega`(IdVenta INT, IdEmpleado INT, 
 IdVehiculo INT, LlegoBien BIT)
@@ -283,11 +284,13 @@ BEGIN
 	INSERT INTO entrega(id_venta,
 						id_empleado,
                         id_vehiculo,
-                        llego_bien)
+                        llego_bien,
+                        entregado)
 	VALUES(IdVenta,
 			IdEmpleado,
             IdVehiculo,
-            LlegoBien);
+            LlegoBien,
+            0);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -556,20 +559,21 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `modificarEntrega`(Id int, IdVenta INT, IdEmpleado INT, 
-IdVehiculo INT, LlegoBien BIT)
+IdVehiculo INT, LlegoBien BIT, Entregado BIT)
 BEGIN
 	UPDATE entrega
     SET id_venta = IdVenta,
 		id_empleado = IdEmpleado,
         id_vehiculo = IdVehiculo,
-		llego_bien = LlegoBien
+		llego_bien = LlegoBien,
+        entregado = Entregado
 	WHERE entrega.id = Id;
 END ;;
 DELIMITER ;
@@ -788,7 +792,7 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `read_entrega`(Id INT)
 BEGIN
-	SELECT id_venta, id_empleado, id_vehiculo, llego_bien
+	SELECT id_venta, id_empleado, id_vehiculo, llego_bien, entregado
     FROM entrega
     WHERE entrega.id = Id;
 END ;;
@@ -933,4 +937,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-22 20:06:39
+-- Dump completed on 2021-06-22 21:45:18
