@@ -216,18 +216,16 @@
     </section>
     
             <div>
-    
                 <hr />
-    
-            <asp:Label ID="Label1" runat="server" Text="ID"></asp:Label>
-            <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource1" DataValueField="ID" ForeColor="Black"></asp:DropDownList>
-            <asp:Label ID="Label2" runat="server" Text="IDFerreteria"></asp:Label>
-            <asp:DropDownList ID="DropDownList2" runat="server" DataSourceID="SqlDataSource2" DataTextField="ID" DataValueField="ID" ForeColor="Black">
-            </asp:DropDownList>
-            <asp:Label ID="Label3" runat="server" Text="Nombre"></asp:Label>
-            <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-                <asp:Label ID="Label8" runat="server" Text="Apellido"></asp:Label>
-                <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                <asp:Label ID="Label1" runat="server" Text="ID"></asp:Label>
+                <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource1" DataValueField="ID" ForeColor="Black"></asp:DropDownList>
+                <asp:Label ID="Label2" runat="server" Text="IDFerreteria"></asp:Label>
+                <asp:DropDownList ID="DropDownList2" runat="server" DataSourceID="SqlDataSource2" DataTextField="ID" DataValueField="ID" ForeColor="Black">
+                </asp:DropDownList>
+                <asp:Label ID="Label3" runat="server" Text="Nombre"></asp:Label>
+                <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                    <asp:Label ID="Label8" runat="server" Text="Apellido"></asp:Label>
+                    <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
             </div>
             <div>
             <asp:Label ID="Label4" runat="server" Text="Foto"></asp:Label>
@@ -248,6 +246,19 @@
                 <div>
                     <asp:Button ID="Button1" runat="server" Text="Insert" OnClick="Button1_Click" />
                     <asp:Button ID="Button2" runat="server" Text="Update" OnClick="Button2_Click" />
+                    <hr />
+
+                    <asp:Label ID="Label6" runat="server" Text="Premiar Mejor empleado               "></asp:Label>
+                    <asp:Label ID="Label14" runat="server" Text="Fecha Inicio"></asp:Label>
+                    <asp:TextBox ID="TextBox8" runat="server"></asp:TextBox>
+                    <asp:Label ID="Label15" runat="server" Text="Fecha Final"></asp:Label>
+                    <asp:TextBox ID="TextBox9" runat="server"></asp:TextBox>
+                    <asp:DropDownList ID="ferreteriasDownList" runat="server" ForeColor="Black">
+                        <asp:ListItem Value="1">GAM</asp:ListItem>
+                        <asp:ListItem Value="2">Norte</asp:ListItem>
+                        <asp:ListItem Value="3">Sur</asp:ListItem>
+                    </asp:DropDownList>
+                    <asp:Button ID="Button5" runat="server" Text="Premiar Mejor" OnClick="Button5_Click" />
                     <hr />
                     <asp:ListView ID="ListView2" runat="server" DataKeyNames="ID" DataSourceID="SqlDataSource3">
                         <AlternatingItemTemplate>

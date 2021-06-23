@@ -150,5 +150,39 @@ namespace BD_Proyecto
                 }
             }
         }
+
+        protected void Button5_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["BD_Proyecto"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("mejorEmpleado", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@FechaI", SqlDbType.Date).Value = TextBox8.Text;
+                    cmd.Parameters.Add("@FechaF", SqlDbType.Date).Value = TextBox9.Text;
+                    if (ferreteriasDownList.SelectedItem.Value == "1")
+                    {
+                        cmd.Parameters.Add("@Ferreteria", SqlDbType.Int).Value = 1;
+                    }
+                    if (ferreteriasDownList.SelectedItem.Value == "2")
+                    {
+                        cmd.Parameters.Add("@Ferreteria", SqlDbType.Int).Value = 2;
+                    }
+                    if (ferreteriasDownList.SelectedItem.Value == "3")
+                    {
+                        cmd.Parameters.Add("@Ferreteria", SqlDbType.Int).Value = 3;
+                    }
+                    
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+
+                    TextBox8.Text = string.Empty;
+                    TextBox9.Text = string.Empty;
+                    Page.Response.Redirect(Page.Request.Url.ToString(), true);
+                }
+            }
+            
+        }
     }
 }

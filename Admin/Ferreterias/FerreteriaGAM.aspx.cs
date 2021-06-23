@@ -36,7 +36,7 @@ namespace BD_Proyecto
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProductoInventarioDrop.SelectedValue;
-                    cmd.Parameters.Add("@IdEstante)", SqlDbType.Int).Value = idEstanteInventarioDrop.SelectedValue;
+                    cmd.Parameters.Add("@IdEstante", SqlDbType.Int).Value = idEstanteInventarioDrop.SelectedValue;
                     cmd.Parameters.Add("@Cantidad", SqlDbType.Int).Value = cantiadInventarioText.Text.Trim();
                     cmd.Parameters.Add("@Ferreteria", SqlDbType.Int).Value = 1;
 
@@ -58,7 +58,7 @@ namespace BD_Proyecto
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@ID", SqlDbType.Int).Value = idInventarioDrop.SelectedValue;
                     cmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProductoInventarioDrop.SelectedValue;
-                    cmd.Parameters.Add("@IdEstante)", SqlDbType.Int).Value = idEstanteInventarioDrop.SelectedValue;
+                    cmd.Parameters.Add("@IdEstante", SqlDbType.Int).Value = idEstanteInventarioDrop.SelectedValue;
                     cmd.Parameters.Add("@Cantidad", SqlDbType.Int).Value = cantiadInventarioText.Text.Trim();
                     cmd.Parameters.Add("@Ferreteria", SqlDbType.Int).Value = 1;
                     if (cantiadInventarioText.Text.Trim() == string.Empty)
