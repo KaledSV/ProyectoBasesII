@@ -31,6 +31,7 @@ namespace BD_Proyecto
                     lblTotal.Text = "";
                     ShoppingCartTitle.InnerText = "";
                     UpdateBtn.Visible = false;
+                    CompraButton.Visible = false;
                 }
             }
         }

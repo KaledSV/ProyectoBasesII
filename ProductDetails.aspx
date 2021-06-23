@@ -19,6 +19,17 @@
                         <br />
                         <span><b>Product Number:</b>&nbsp;<%#:Item.Codigo %></span>
                         <br />
+                        <% if (Session["admin"] != null)
+                                                {
+                                                    if (Session["admin"].Equals(0))
+                                                    {%>
+                                            <a href="/AgregarACarrito.aspx?productID=<%#:Item.ID %>">               
+                                                <span class="ProductListItem">
+                                                    <b>Agregar a Carrito<b>
+                                                </span>           
+                                            </a>
+                                            <%}
+                                                } %>
                     </td>
                 </tr>
             </table>
