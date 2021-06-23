@@ -15,10 +15,14 @@ namespace BD_Proyecto
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["admin"].Equals(0))
+            if (Session["admin"] != null)
             {
-                Page.Response.Redirect("~/Default.aspx", true);
+                if (Session["admin"].Equals(0))
+                {
+                    Page.Response.Redirect("~/Default.aspx", true);
+                }
             }
+
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -28,7 +32,7 @@ namespace BD_Proyecto
                 using (SqlCommand cmd = new SqlCommand("sp_create_empleado", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    if (TextBox1.Text.Trim() == string.Empty || TextBox2.Text.Trim() == string.Empty || TextBox3.Text.Trim() == string.Empty || TextBox4.Text.Trim() == string.Empty)
+                    if (TextBox1.Text.Trim() == string.Empty || TextBox2.Text.Trim() == string.Empty || TextBox3.Text.Trim() == string.Empty || TextBox4.Text.Trim() == string.Empty || TextBox5.Text.Trim() == string.Empty)
                     {
                         Page.Response.Write("Campos vacios");
                     }
@@ -40,6 +44,8 @@ namespace BD_Proyecto
                         cmd.Parameters.Add("@Foto", SqlDbType.Image).Value = Encoding.ASCII.GetBytes(TextBox3.Text.Trim());
                         cmd.Parameters.Add("@FechaIngreso", SqlDbType.Date).Value = TextBox4.Text.Trim();
                         cmd.Parameters.Add("@Activo", SqlDbType.Bit).Value = CheckBox1.Checked;
+                        cmd.Parameters.Add("@NumVacaciones", SqlDbType.Int).Value = TextBox5.Text.Trim();
+                        cmd.Parameters.Add("@IDTipoEmpleado", SqlDbType.Int).Value = DropDownList3.SelectedValue;
 
 
 
@@ -79,6 +85,63 @@ namespace BD_Proyecto
                         cmd.Parameters.Add("@FechaIngreso", SqlDbType.Date).Value = TextBox4.Text.Trim();
                     }
                     cmd.Parameters.Add("@Activo", SqlDbType.Bit).Value = CheckBox1.Checked;
+                    
+                    if (TextBox5.Text.Trim() != string.Empty)
+                    {
+                        cmd.Parameters.Add("@NumVacaciones", SqlDbType.Int).Value = TextBox5.Text.Trim();
+                    }
+
+                    cmd.Parameters.Add("@IDTipoEmpleado", SqlDbType.Int).Value = DropDownList3.SelectedValue;
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+
+                    Page.Response.Redirect(Page.Request.Url.ToString(), true);
+                }
+            }
+        }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["BD_Proyecto"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_create_tipoempleado", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    if (TextBox6.Text.Trim() == string.Empty || TextBox7.Text.Trim() == string.Empty)
+                    {
+                        Page.Response.Write("Campos vacios");
+                    }
+                    else
+                    {
+                        cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = TextBox6.Text.Trim();
+                        cmd.Parameters.Add("@descripcion", SqlDbType.VarChar).Value = TextBox7.Text.Trim();
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+
+
+                        Page.Response.Redirect(Page.Request.Url.ToString(), true);
+                    }
+                }
+            }
+        }
+
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["BD_Proyecto"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_update_tipoempleado", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = DropDownList4.SelectedValue;
+                    if (TextBox6.Text.Trim() != string.Empty)
+                    {
+                        cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = TextBox6.Text.Trim();
+                    }
+                    if (TextBox7.Text.Trim() != string.Empty)
+                    {
+                        cmd.Parameters.Add("@descripcion", SqlDbType.VarChar).Value = TextBox7.Text.Trim();
+                    }
 
                     con.Open();
                     cmd.ExecuteNonQuery();

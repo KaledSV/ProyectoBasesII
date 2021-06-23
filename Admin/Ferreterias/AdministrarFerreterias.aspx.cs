@@ -15,9 +15,12 @@ namespace BD_Proyecto
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["admin"].Equals(0))
+            if (Session["admin"] != null)
             {
-                Page.Response.Redirect("~/Default.aspx", true);
+                if (Session["admin"].Equals(0))
+                {
+                    Page.Response.Redirect("~/Default.aspx", true);
+                }
             }
         }
 
