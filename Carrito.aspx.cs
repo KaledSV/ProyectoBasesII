@@ -93,5 +93,14 @@ namespace BD_Proyecto
         {
             UpdateCartItems();
         }
+
+        protected void CompraButton_Click(object sender, EventArgs e)
+        {
+            if (Session["admin"] != null) { 
+                AccionesCarrito acciones = new AccionesCarrito();
+                int test = acciones.comprar(Int32.Parse(Session["admin"].ToString()), Int32.Parse(Session["ferreteria"].ToString()), Int32.Parse(Session["id"].ToString()));
+                Page.Response.Redirect(Page.Request.Url.ToString(), true);
+            }
+        }
     }
 }

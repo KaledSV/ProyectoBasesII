@@ -44,6 +44,7 @@
     <table> 
     <tr>
       <td>
+          <asp:Button ID="CompraButton" runat="server" OnClick="CompraButton_Click" Text="Facturar" />
         <asp:Button ID="UpdateBtn" runat="server" Text="Update" OnClick="UpdateBtn_Click" />
       </td>
       <td>

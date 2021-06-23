@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 using BD_Proyecto.Models;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace BD_Proyecto.Logic
 {
@@ -207,6 +211,51 @@ namespace BD_Proyecto.Logic
             return count ?? 0;
         }
 
+        public int comprar(int testAdmn, int ferr, int cliente)
+        {
+            int idVenta = 0;
+            if (testAdmn == 0)
+            {
+                
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["BD_Proyecto"].ConnectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("venta", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@fereteria", SqlDbType.Int).Value = ferr;
+                        cmd.Parameters.Add("@IdCliente", SqlDbType.Int).Value = cliente;
+                        con.Open();
+                        SqlDataReader data = cmd.ExecuteReader();
+                        data.Read();
+                        idVenta = Int32.Parse(data[0].ToString());
+                    }
+                }
+                if (idVenta > 0)
+                {
+                    CarritoId = GetCartId();
+                    var cartItems = _db.ItemsCarrito.Where(
+                        c => c.IDCarrito == CarritoId);
+                    foreach (var cartItem in cartItems)
+                    {
+                        using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["BD_Proyecto"].ConnectionString))
+                        {
+                            using (SqlCommand cmd = new SqlCommand("ventaProducto", con))
+                            {
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Parameters.Add("@fereteria", SqlDbType.Int).Value = ferr;
+                                cmd.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idVenta;
+                                cmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = cartItem.IDProducto;
+                                cmd.Parameters.Add("@Cantidad", SqlDbType.Int).Value = cartItem.Cantidad;
+                                con.Open();
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                }
+                EmptyCart();
+            }
+            return idVenta;
+        }
         public struct ShoppingCartUpdates
         {
             public int ProductId;
