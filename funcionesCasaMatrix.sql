@@ -660,3 +660,61 @@ SET NOCOUNT ON
 SET NOCOUNT OFF
 END
 GO
+
+IF OBJECT_ID('[dbo].[obtenerDistancias]') IS NOT NULL
+BEGIN 
+    DROP PROC [dbo].[obtenerDistancias]
+END 
+GO
+CREATE PROCEDURE [dbo].[obtenerDistancias]
+	@Ferreteria INT
+AS
+BEGIN
+SET NOCOUNT ON
+	BEGIN TRY
+		DECLARE @TempDirecciones TABLE ( Id int IDENTITY(1,1), 
+							 EjeX FLOAT,
+							 EjeY FLOAT)
+
+		DECLARE @TempPuntos TABLE (Id int IDENTITY(1,1),
+									Punto GEOGRAPHY)
+		
+		IF @fereteria = 1
+			BEGIN
+				EXEC ('Call getDirecciones') AT FGAM
+		
+				INSERT INTO @TempDirecciones
+				SELECT EjeX, EjeY
+				FROM OPENQUERY([FGAM],'SELECT ejeX,
+												ejeY
+										FROM TempDirecciones;');
+			END
+		IF @fereteria = 2
+			BEGIN
+				EXEC ('Call getDirecciones') AT FNORTE
+		
+				INSERT INTO @TempDirecciones
+				SELECT EjeX, EjeY
+				FROM OPENQUERY([FNORTE],'SELECT ejeX,
+												ejeY
+										FROM TempDirecciones;');
+			END
+		IF @fereteria = 3
+			BEGIN
+				EXEC ('Call getDirecciones') AT FSUR
+		
+				INSERT INTO @TempDirecciones
+				SELECT EjeX, EjeY
+				FROM OPENQUERY([FSUR],'SELECT ejeX,
+												ejeY
+										FROM TempDirecciones;');
+			END
+		
+	END TRY
+
+	BEGIN CATCH
+		SELECT -1
+	END CATCH
+SET NOCOUNT OFF
+END
+GO
